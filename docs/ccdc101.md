@@ -1,6 +1,6 @@
 # CCDC 101 — What Is It?
 
-**Last updated:** August 2026  
+**Last updated:** September 2026  
 **Owner:** AJ  
 **For:** Everyone on the CyberForce roster considering CCDC
 
@@ -11,7 +11,7 @@
 > with the 2027 season. The competition structure is expected to stay the
 > same. Monitor [ccdc.io](https://ccdc.io) and
 > [caeepnc.org/mwccdc](https://www.caeepnc.org/mwccdc/) for official 2027
-> updates. **Registration opens October 1, 2026.**
+> updates. Registration opens October 1, 2026.
 
 ---
 
@@ -35,8 +35,7 @@ exclusively from people competing in CyberForce. If you are on the
 CyberForce roster and want to compete in CCDC, you are the target audience
 for this document.
 
-Team size is 4–8 members (minimum 4 to compete). UIC targets 6 people for
-an effective split of roles.
+Team size is 4–8 members (minimum 4 to compete). UIC targets 6.
 
 ---
 
@@ -47,18 +46,20 @@ an effective split of roles.
 Each year CCDC creates a fictional company scenario. Your team plays the role
 of IT professionals newly hired to manage that company's network. You inherit
 systems that are not properly secured, and your job is to lock them down,
-keep services running, and respond to business requests — all while a
-professional red team actively tries to break in and kick you out.
+keep services running for the business, and respond to management requests —
+all while a professional red team is actively trying to break in and kick
+you out.
 
 ### The Environment (Based on 2026 MWCCDC)
 
-The 2026 competition used 11 virtual machines across two network segments,
-managed via NETLAB+ and Proxmox. The specific stack:
+The 2026 competition used 11 virtual machines across two network segments.
+The 2027 topology has not been published yet — treat this as the training
+baseline.
 
 | VM | OS | Role |
 |---|---|---|
-| Ubuntu Ecom | Ubuntu Server 24.04 | E-commerce server |
-| Fedora Webmail | Fedora 42 | Webmail (email) |
+| Ubuntu Ecom | Ubuntu Server 24.04 | E-commerce server (HTTP/HTTPS) |
+| Fedora Webmail | Fedora 42 | Webmail (SMTP, POP3) |
 | Splunk | Oracle Linux 9.2 / Splunk 10.0.2 | Log monitoring |
 | Ubuntu Workstation | Ubuntu Desktop 24.04 | User workstation |
 | Windows Server AD/DNS | Server 2019 | Active Directory + DNS |
@@ -69,16 +70,10 @@ managed via NETLAB+ and Proxmox. The specific stack:
 | Firewall 2 | Palo Alto PA 11.0.2 | Internal firewall |
 | VyOS Router | VyOS 1.4.3 | Network router |
 
-> The 2027 topology has not been published yet. Treat the above as your
-> training baseline — expect a similar mix of Linux servers, Windows servers,
-> Palo Alto firewalls, and a router. Details will be updated when MWCCDC
-> releases the 2027 team packet.
-
 ### Scored Services
 
-The scoring engine checks these services at random intervals throughout
-competition. Every minute a service is down costs you points (SLA penalties
-apply):
+The scoring engine checks these services continuously. SLA penalties accrue
+when services are down too long:
 
 - **HTTP / HTTPS** — web page content must match expected output exactly
 - **SMTP** — email send/receive through valid accounts
@@ -88,106 +83,87 @@ apply):
 - **TFTP** — file pull with integrity check
 - **NTP** — time server accuracy
 
-Keeping these up is 35–50% of your total score. Hardening a system so well
-that you accidentally break a scored service is one of the most common and
-costly mistakes.
+Service uptime is 35–50% of your total score.
 
 ### Injects (Business Tasks)
 
 Throughout competition, the White Team drops "injects" — business tasks your
-team must complete and respond to within a time window. Every inject response
-is submitted as a **business memo in PDF format** via the NISE platform.
+team must complete within a time window. Every inject response is submitted
+as a **business memo in PDF format** via the NISE platform.
 
-Injects are worth 35–50% of your total score. Teams that treat inject
-responses as an afterthought consistently underperform, even with strong
-technical defense.
-
-See [inject-response-template.md](../drills/inject-response-template.md) for
-the memo format. The short version: write for a non-technical manager, lead
-with conclusions, put technical detail in appendices.
+Injects are worth 35–50% of your total score.
 
 ### Incident Response
 
-When the red team successfully compromises something, you need to detect it,
-document it, and submit an incident report. This is worth 10–30% of your score.
-
-A good incident report includes: source and destination IPs, timeline of
-activity, what was affected, and a remediation plan. Vague reports score
-poorly. Specific, accurate reports score well even if the red team got in.
+When the red team successfully compromises something, you detect it, document
+it, and submit an incident report. Worth 10–30% of your score. Good incident
+reports on successful compromises can outscore a team that had no compromises
+but documented nothing.
 
 ---
 
-## The Season Structure
-
-CCDC is not a single event. It is a progressive season with multiple rounds:
+## The 2027 Season Structure
 
 ```
-Invitationals (Oct/Nov) — optional dry run, virtual, low stakes
+Oct 24          — Invitational 1 ✅ ($100/team)
+Nov 7           — Invitational 2 ✅ ($100/team)
+[Nov 14 skipped — conflicts with CyberForce Competition]
         ↓
-Illinois State Qualifier (~Feb 14) — must pass to advance
+Feb 13, 2027    — IL/MO State Qualifier ✅ ($500/team)
         ↓
-Midwest Wildcard Round (~Feb 21) — second-chance path to Regionals
+Feb 20, 2027    — Midwest Wildcard ✅ (no added fee)
         ↓
-MWCCDC Regionals (~Mar 20-21) — Purdue University Northwest (2026)
+Mar 19–20, 2027 — MWCCDC Regionals ✅ (no added fee)
         ↓
-National CCDC (~Apr 24-26) — top regional winner advances
+Apr 2027        — National CCDC ✅ (exact dates TBD)
 ```
 
-> All dates except Invitationals are estimated from the 2026 season.
-> Official 2027 dates will be posted at caeepnc.org/mwccdc/ and ccdc.io.
-> Illinois state contact: Kevin Vaccaro (vaccaro@morainevalley.edu).
+**Wildcard eligibility:** 2nd and 3rd place from each state qualifier advance
+to the Wildcard on Feb 20. Top Wildcard finishers advance to Regionals. There
+are more paths to Regionals than just winning the state qualifier.
+
+**Over 40 Midwest teams** are anticipated for the 2027 season — a record
+number. Qualifier competition will be stronger than prior years.
 
 ### Invitationals — What They Are
 
-The October/November invitationals are an optional dry run. They mirror the
+The October and November Invitationals are optional dry runs. They mirror the
 real competition format — same NISE platform, same inject structure, live red
-team — but results do not affect qualification. Think of it as a full-speed
-practice with consequences low enough to experiment.
+team — but results do not affect qualification.
 
-**UIC's invitationals fall during CyberForce crunch time (Role Bootcamp is
-Oct 19–23; CyberForce contract period starts Oct 26).** You will be doing
-both simultaneously. Plan your workload accordingly.
+**UIC is targeting Invitationals 1 and 2 only.** Invitational 3 (Nov 14)
+conflicts with the CyberForce Competition.
+
+**Cost:** $100 per team per Invitational. National CCDC registration is NOT
+required to compete in Invitationals.
 
 ### Registration
 
 National registration opens October 1, 2026 and historically stays open
-into mid/late January. This is **not** a hard recruiting cutoff — it just
-means we can register the team before the roster is finalized.
+into mid-to-late January. The real deadline is before the first Invitational
+(Oct 24).
 
-The real deadline is: **register before the first Invitational you want to
-attend** (estimated mid-October — confirm with Kevin Vaccaro).
-
-**Cost:** $500 per team, billed after registration. Whether this comes from
-the SFAB budget is an open question — check with leadership before assuming
-it is covered.
+**Qualifier fee:** $500 per team. No additional charge if the team advances
+to Wildcard, Regionals, or Nationals.
 
 ---
 
 ## How CCDC Differs from CyberForce
 
-If you competed in CyberForce, you have the technical foundation. Here is
-what is different about CCDC and where teams who only trained for CyberForce
-get caught off guard:
-
 | | CyberForce | CCDC |
 |---|---|---|
-| Red team timing | Competition day only | Active from drop flag, both days |
-| Prep access | ~3 weeks of SSH access | None — you inherit machines live |
-| Business tasks | Injects during competition | Injects throughout, memo format required |
+| Red team timing | Competition day only | Active from drop flag |
+| Prep access | ~3 weeks of SSH access | None — inherit machines live |
+| Business tasks | Injects during competition | Injects throughout, memo format |
 | OT/ICS systems | Yes (HMI, PLC) | Generally no |
-| AD/DNS | Sometimes | Always — central to the environment |
+| AD/DNS | Sometimes | Always — central to everything |
 | Palo Alto firewalls | No | Yes — two of them |
 | Scoring weight | Anomalies heaviest | Services + injects roughly equal |
-| Team cohesion pressure | Medium | High — communication failures are fatal |
+| Duration | One full day | Two full days |
 
-The biggest gap for CyberForce veterans is Active Directory and Palo Alto
-firewalls. Both appear in every CCDC environment and neither appears in
+The biggest gaps for CyberForce veterans: Active Directory and Palo Alto
+firewalls. Both appear in every CCDC environment, neither appears in
 CyberForce. Start there.
-
-The second biggest gap is **business communication**. CyberForce injects are
-manageable. CCDC injects come faster, pile up, and are worth up to 50% of
-your score. If your team cannot write a clean business memo under pressure,
-you will lose points you technically earned.
 
 ---
 
@@ -199,101 +175,46 @@ you will lose points you technically earned.
 | Inject completion | 35–50% |
 | Incident response | 10–30% |
 
-Exact percentages are set by the White Team and not published in advance.
-The takeaway: **there is no single thing to optimize**. A team that
-completely ignores injects to focus on hardening will lose. A team that
-writes perfect memos but lets services go down will also lose.
+There is no single thing to optimize. A team that ignores injects to focus
+on hardening will lose. A team that writes perfect memos but lets services
+go down will also lose.
 
 ---
 
 ## What the Competition Days Look Like
 
-Based on the 2026 MWCCDC schedule at Purdue University Northwest:
-
 **Day 1 (Friday)**
-- Check-in, receive packets and credentials
-- Log into NISE, respond to Welcome inject to signal readiness
-- Drop flag at 2:30 PM — scoring runs until 8:30 PM
-- Red team is active the entire time
+- Check-in, receive credentials
+- Log into NISE, respond to Welcome inject
+- Drop flag: 2:30 PM — scoring runs until 8:30 PM
+- Red team active the entire time
 
 **Day 2 (Saturday)**
-- Drop flag at 9:00 AM — scoring runs until 6:00 PM
-- Injects continue throughout the day
+- Drop flag: 9:00 AM — scoring runs until 6:00 PM
+- Injects throughout the day
 - Team presentations: 2:00–4:00 PM
-- Awards at 7:00 PM
+- Awards: 7:00 PM
 
-Six hours on Day 1, nine hours on Day 2. You will be tired. Teams that have
-not drilled communication under fatigue make mistakes that cost them the
-competition.
-
----
-
-## Platform: NISE
-
-All team communication during competition goes through the NISE (National
-Inject Scoring Engine), accessible via browser. Each team member gets their
-own login account. Key things to know:
-
-- Check NISE first when you arrive — there is a Welcome inject to acknowledge
-  before the drop flag fires
-- Inject responses must be submitted as PDF attachments unless told otherwise
-- NISE may need to be manually refreshed — it does not always auto-update
-- SLA status (which services are up/down) is visible through NISE
-- All times displayed on NISE are Central Standard Time
-
-For tech support, scoring inquiries, and password change requests, use
-Support Services at auth.ccdc.events (same credentials as NISE).
-
-**Critical rule:** Any scored service password change must be reported to the
-White Team via a Support Ticket. Changing a password without reporting it
-will cause that service to stop scoring.
-
----
-
-## What You Will Learn
-
-**Technical:**
-- Active Directory administration and hardening under attack
-- Palo Alto firewall configuration (NAT/PAT, security policies, IPS)
-- Service hardening across a mixed Linux/Windows environment
-- Real-time incident detection and response
-- VyOS router configuration
-- Splunk for log monitoring
-
-**Non-technical:**
-- Writing business memos under time pressure
-- Coordinating 6–8 people defending different systems simultaneously
-- Triage — deciding what to fix and what to accept as lost
-- Communicating compromises clearly and quickly
+Six hours on Day 1, nine hours on Day 2.
 
 ---
 
 ## Common Questions
 
-**Do I need to know Active Directory going in?**  
-Not from day one, but you need to learn it before the Qualifier. It is the
-most CCDC-specific gap for CyberForce veterans and will be a focus of fall
-prep.
+**Which Invitationals are we doing?**
+Oct 24 and Nov 7. Nov 14 is skipped — it conflicts with CyberForce.
 
-**What if the red team gets in?**  
-Write an incident report and keep defending. Red team access is expected —
-the question is how quickly you detect it, how well you document it, and
-whether you stop further damage. A thorough incident report on a successful
-compromise can outscore a team that had no compromises but documented nothing.
+**Do we need national registration before Invitationals?**
+No. National registration (ccdc.io) is not required to compete in
+Invitationals. Register before the Qualifier deadline instead.
 
-**Can I be on both the CyberForce and CCDC roster?**  
-Yes — the CCDC roster is drawn from CyberForce competitors. October will be
-heavy because CyberForce Role Bootcamp and the CCDC Invitationals overlap.
-Plan for it now.
+**What if we finish 2nd or 3rd at the Qualifier?**
+You advance to the Wildcard on Feb 20. Losing the Qualifier does not
+end the season.
 
-**What is the $500 fee?**  
-The MWCCDC entry cost per team. Whether this is covered by SFAB or requires
-separate funding is currently unresolved. Do not assume it is covered until
-confirmed with leadership.
-
-**Who do I contact for Illinois-specific CCDC questions?**  
-Kevin Vaccaro, Illinois State CCDC Director  
-vaccaro@morainevalley.edu | 708-608-4249
+**What does the $500 fee cover?**
+Entry into the IL/MO State Qualifier only. No added charge for Wildcard,
+Regionals, or Nationals if you advance.
 
 ---
 
@@ -301,16 +222,16 @@ vaccaro@morainevalley.edu | 708-608-4249
 
 **Want to compete?**
 1. Confirm you are on the CyberForce roster
-2. Attend Intro to CCDC — Sept 24 (what & why) and Sept 29 (how it works + roster sign-up)
+2. Attend CCDC 101 (Sept 24) and CCDC Deep Dive (Sept 29)
+3. Sign up on the roster sheet at the Sept 29 session
 
 **Want to prepare now?**
-- Study Active Directory: users, groups, Group Policy, DNS integration
-- Get familiar with Palo Alto PAN-OS — free labs at
-  [paloaltonetworks.com/services/education](https://www.paloaltonetworks.com/services/education)
+- Study Active Directory basics
+- Palo Alto PAN-OS free labs: paloaltonetworks.com/services/education
 - Read [inject-response-template.md](../drills/inject-response-template.md)
 - Review [2026-mwccdc-topology.md](../topology/2026-mwccdc-topology.md)
 
-**Questions?**  
+**Questions?**
 Ask in #ccdc on Discord or DM @AJ.
 
 ---
@@ -323,4 +244,3 @@ Ask in #ccdc on Discord or DM @AJ.
 | National CCDC (NCRF) | https://ccdc.io |
 | NISE platform | ccdcadmin1.morainevalley.edu |
 | NETLAB access | ccdc.cit.morainevalley.edu |
-| Illinois state director | vaccaro@morainevalley.edu |
