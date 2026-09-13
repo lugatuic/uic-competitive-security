@@ -1,6 +1,6 @@
 # 2026–2027 Competition Timeline
 
-**Last updated:** August 2026  
+**Last updated:** September 2026  
 **Owner:** AJ  
 **For:** Everyone — competitors, event leaders, and admins
 
@@ -15,23 +15,19 @@
 
 **CyberForce official source:** [cyberforce.energy.gov](https://cyberforce.energy.gov)  
 **CCDC official source:** [caeepnc.org/mwccdc](https://www.caeepnc.org/mwccdc/) and [ccdc.io](https://ccdc.io)  
-**Illinois CCDC contact:** Kevin Vaccaro — vaccaro@morainevalley.edu
+**Illinois CCDC contact:** David — see caeepnc.org/mwccdc/ for contact info
 
 ---
 
 ## Two Competitions, One Year
 
-This timeline covers both competitions running in parallel:
-
 - **CyberForce** — DOE-sponsored, energy infrastructure defense, Fall semester
 - **CCDC** — Collegiate Cyber Defense Competition, enterprise network defense,
   spans Fall (Invitationals) through Spring (Qualifier → Regionals → Nationals)
 
-The two overlap heavily in October. Plan for it.
-
 CCDC eligibility: the CCDC roster is drawn exclusively from the CyberForce
-roster. There is no separate CCDC recruiting in Fall. Spring semester is
-genuine open recruiting for the 2027–28 cycle.
+roster. No separate CCDC recruiting in Fall. Spring semester is genuine open
+recruiting for the 2027–28 cycle.
 
 ---
 
@@ -45,14 +41,6 @@ genuine open recruiting for the 2027–28 cycle.
 | Aug 24 | Fall semester begins | — | ✅ |
 | All month | Individual study by role | Both | — |
 
-**What you should be doing:**  
-Study based on your role placement. CyberForce competitors: Linux, Windows,
-Open PLC, PHP depending on role. CCDC competitors: start on Active Directory
-and Palo Alto PAN-OS — these are the biggest gaps coming from CyberForce
-and there is no shortcut to getting reps in.
-
-Check Discord for updates from AJ.
-
 ---
 
 ### September 2026 — Kickoff
@@ -64,101 +52,65 @@ Check Discord for updates from AJ.
 | Sept 1 | Dev team first sprint | CTF Group | ✅ |
 | Sept 9 | GBM — includes CCDC pitch to full group | Both | ✅ |
 | Sept 12–19 | Linux Week — no in-person events | — | ✅ |
-| Sept 22 | **CyberForce Team Kickoff** — roster only, in-person | CyberForce | ✅ |
-| Sept 24 | **CCDC 101** — what & why, roster only | CCDC | ✅ |
-| Sept 29 | **CCDC Deep Dive** — how it works + roster sign-up | CCDC | ✅ |
-
-**CyberForce Team Kickoff (Sept 22):**  
-In-person, CyberForce roster only. Covers: competition refresher, fall
-timeline, team roles, expectations, brief CCDC intro, veteran Q&A.
-See [events/fall-2026/cyberforce-team-kickoff/speaker-notes.md](../events/fall-2026/cyberforce-team-kickoff/speaker-notes.md).
-
-**CCDC 101 & CCDC Deep Dive Sessions (Sept 24 + Sept 29):**  
-In-person, CyberForce roster only. CCDC 101 (Sept 24) is the what and why — what
-CCDC is, how it differs from CyberForce, the full season structure. CCDC Deep Dive
-(Sept 29) is the how — platform mechanics, scoring deep dive, roles, and the actual
-roster sign-up. See [events/fall-2026/ccdc101/](../events/fall-2026/ccdc101/)
-and [events/fall-2026/ccdc-deep-dive/](../events/fall-2026/ccdc-deep-dive/).
+| Sept 23 | **CyberForce Team Kickoff** — roster only | CyberForce | ✅ |
+| Sept 25 | **CCDC 101** — what & why, roster only | CCDC | ✅ |
+| Sept 30 | **CCDC Deep Dive** — how it works + roster sign-up | CCDC | ✅ |
 
 ---
 
 ### October 2026 — Heavy Overlap Month
 
-> **This is the hardest month.** CyberForce Role Bootcamp, CCDC Invitationals,
-> and the start of the CyberForce contract period all stack on each other.
-> Plan your workload now.
+> **This is the hardest month.** CyberForce Role Bootcamp, the first CCDC
+> Invitational, and the start of the CyberForce contract period all land
+> within the same two-week window. Plan your workload now.
 
 | Date | What | Competition | Status |
 |------|------|-------------|--------|
 | Oct 1 | CCDC national registration window opens | CCDC | ✅ |
-| Oct 7 | **CyberForce CTF** — practice event, open to roster | CyberForce | ✅ |
-| Oct 18 | MWCCDC Invitational option (est.) | CCDC | 📅 |
-| Oct 19 | **Role Bootcamp Day 1** — Green Team | CyberForce | ✅ |
+| Oct 7 | **CyberForce CTF** — practice event | CyberForce | ✅ |
+| Oct 14 | **Role Bootcamp Day 1** — Green Team | CyberForce | ✅ |
 | Oct 21 | **Role Bootcamp Day 2** — Vulnerability Hunting | CyberForce | ✅ |
-| Oct 23 | **Role Bootcamp Day 3** — Monitoring & Hardening | CyberForce | ✅ |
-| Oct 25 | MWCCDC Invitational option (est.) | CCDC | 📅 |
-| Oct 26 - Nov 2, 6pm CT | **CyberForce Phase 1** — C-Suite material released | CyberForce | ✅ |
+| Oct 24 | **MWCCDC Invitational 1** | CCDC | ✅ |
+| Oct 26, 6pm CT | **CyberForce contract period begins** | CyberForce | ✅ |
+| Oct 28 | **Role Bootcamp Day 3** — Monitoring & Hardening | CyberForce | ✅ |
 | Oct 29 | Hack-o-ween CTF — WiCyS collab (est.) | CTF Group | 📅 |
-| Nov 2 - Nov 9, 6pm CT | **CyberForce Phase 2** — rulebook & servers go online | CyberForce | ✅ |
 
-**CyberForce CTF (Oct 7):**  
-A mini Capture the Flame event compiled by CTF Group's dev team. Theming TBD.
+**On the Oct 24 Invitational:**
+Falls one day before the CyberForce contract period begins (Oct 26). This
+is the tightest overlap point of the semester. The Invitational is virtual
+and 4 hours — manageable, but plan the week carefully.
 
-**Role Bootcamp (Oct 19/21/23):**  
-Three sessions, each focused on one CyberForce role. Attend the session
-matching your role. Cross-training encouraged, especially between
-Vulnerability Hunters and Monitoring & Hardening.
-
-**MWCCDC Invitationals (est. Oct 18 / Oct 25 / Nov 1):**  
-Virtual, 4-hour sessions (AM or PM slot). Full competition format — NISE
-platform, live red team, scored injects — but results do not affect
-qualification. Treat this as a mandatory dress rehearsal even though it
-is technically optional. Awaiting confirmation from Kevin Vaccaro on exact
-dates and remote participation rules.
-
-**CyberForce Contract Period (Oct 26 → Nov 9):**  
-✅ Confirmed from the 2026 Contractor Activation Guide. This spans two phases:
-- **Phase 1 (Oct 26 – Nov 2):** C-Suite material released. Review scenario and start initial planning. Budget 3–5 hours per week.
-- **Phase 2 (Nov 2 – Nov 9):** Rulebook and servers go online for hands-on hardening and configuration work. Intensive preparation phase.
+**CCDC Invitational fees:** $100 per team per event. National CCDC
+registration is NOT required to compete in Invitationals — you can
+participate before the Oct 1 registration window closes.
 
 ---
 
 ### November 2026 — Crunch + Competition
 
+> **⚠️ Nov 14 conflict:** MWCCDC Invitational 3 falls on the same day as
+> the CyberForce Competition. UIC cannot do both. We are targeting
+> Invitationals 1 (Oct 24) and 2 (Nov 7) only.
+
 | Date | What | Competition | Status |
 |------|------|-------------|--------|
-| Nov 1 | MWCCDC Invitational option (est.) | CCDC | 📅 |
-| Nov 2, 6pm CT | CyberForce Phase 2 begins (from Phase 1) | CyberForce | ✅ |
-| Nov or Spring Sem. | **CCDC post-Invitational debrief** | CCDC | 📅 |
-| Nov 9, 6pm CT | CyberForce Phase 2 ends | CyberForce | ✅ |
+| Nov 7 | **MWCCDC Invitational 2** | CCDC | ✅ |
+| Nov 9 | **CCDC post-Invitational debrief** | CCDC | Planned |
 | Nov 13–14 | **CyberForce Competition** | CyberForce | ✅ |
+| Nov 14 | MWCCDC Invitational 3 — NOT attending (conflict) | CCDC | ✅ |
 | Nov 14, 6pm CT | CyberForce contract period ends | CyberForce | ✅ |
+| Mid-Nov | CyberForce team debrief | Planned |
 
-**CCDC Debrief (date being finalized):**  
-Mandatory for everyone who competed in the Invitational. This is where
-the team debriefs what happened, identifies gaps, and builds the prep
-list for the Qualifier. The lessons from the Invitational are the most
-specific and actionable prep you will get before Feb.
 
-**CyberForce Competition (Nov 13–14):**  
-✅ Confirmed. Full-day in-person event. 
+**CCDC Debrief (post-Invitational 2):**
+Mandatory for everyone who competed in either Invitational. Debrief what
+happened, identify gaps, build the prep list for the Feb 13 Qualifier.
+The lessons from the Invitationals are the most specific and actionable
+prep you will get.
 
-Location:
-Tinley Park Convention Center
-18451 Convention Center Dr, Tinley Park, IL 60477
-
-Mandatory Red-Blue check-in the day before (Nov 12).
-Discord is the only communication channel during the competition window —
-no email support.
-
-What to bring: laptop, charger, ID, snacks. Transportation arranged by LUG.
-
-**What's happening technically during the contract period:**  
-C-Suite briefing video due approximately one week after scenario drop
-(est. early Nov). Security documentation due approximately one week before
-competition. This is where roles train on CyberForce-specific tactics for this year's scenario. 
-Dates TBD pending official announcement from cyberforce.energy.gov.
-for the detailed week-by-week breakdown.
+**CyberForce Competition (Nov 13–14):**
+Full-day in-person event. Mandatory Red-Blue check-in Nov 12. Discord
+only during competition window.
 
 ---
 
@@ -167,26 +119,21 @@ for the detailed week-by-week breakdown.
 | Date | What | Status |
 |------|------|--------|
 | Early Dec | CyberForce scorecards released | 📅 |
-| Dec | Team debrief — what worked, what didn't | Planned |
-| Dec | Lessons learned doc added to repo | Planned |
+| Late Dec | Lessons learned added to repo | Planned |
 
-Read your scorecard. Give feedback. Write a note for next year's team in
-`/scorecards-feedback/`. The CCDC team keeps training through December
-if the Qualifier is in February — do not fully check out.
+CCDC team keeps training through December — the IL/MO Qualifier is
+Feb 13 and January is the last window for serious drilling.
 
 ---
 
-## SPRING 2027
+## 📆 SPRING 2027
 
 > Spring semester starts Jan 11, 2027.  
 > **Linux Week blackout: Feb 1–7 — no in-person events.**
 
-Spring has two parallel tracks running simultaneously:
-
-- **CCDC season** — this year's CCDC team competes in the Qualifier, Wildcard,
-  and Regionals
-- **Open recruiting** — genuine open recruiting for the 2027–28 CyberForce and
-  CCDC cycle (anyone can attend, not just the current roster)
+Spring runs two parallel tracks:
+- **CCDC season** — this year's team competes through to Regionals
+- **Open recruiting** — building the 2027–28 CyberForce and CCDC roster
 
 ---
 
@@ -195,42 +142,41 @@ Spring has two parallel tracks running simultaneously:
 | Date | What | Track | Status |
 |------|------|-------|--------|
 | Jan 11 | Spring semester begins | — | ✅ |
-| Jan (TBD) | CCDC team begins drilling — AD, Palo Alto, team drills | CCDC season | Planned |
-| Late Jan | MWCCDC national registration deadline (est.) | CCDC season | 📅 |
+| Jan 30 | IN/MN Qualifier (not UIC — awareness only) | CCDC | ✅ |
+| Jan (TBD) | CCDC drilling — AD, Palo Alto, team comms | CCDC season | Planned |
 
-**On CCDC prep in January:**  
-The Qualifier is estimated around Feb 14. January is the last window for
-serious team drilling before competition. Priorities: Active Directory
-defense scenarios, Palo Alto firewall configuration under time pressure,
-business memo practice, and full team communication drills. Cohesion
-matters for CCDC more than any individual skill gap.
+**January is the last serious drilling window before Feb 13.** Priorities:
+Active Directory defense scenarios, Palo Alto firewall configuration under
+time pressure, business memo practice, full team communication drills.
 
 ---
 
-### February 2027 — CCDC Qualifier + Spring Recruiting Kicks Off
+### February 2027 — CCDC Qualifier + Spring Recruiting
 
 > **Linux Week blackout: Feb 1–7 — no in-person events**
 
 | Date | What | Track | Status |
 |------|------|-------|--------|
 | Feb 1–7 | Linux Week — no in-person events | — | ✅ |
-| Feb 12 | **Caught the Lovebug CTF** — WiCyS collab (est.) | CTF Group | 📅 |
-| ~Feb 14 | **Illinois State CCDC Qualifier** | CCDC season | 📅 |
-| Feb 17 | **Intro to CyberForce** — open recruiting kickoff for 2027–28 | Recruiting | Planned |
-| Feb 25 | **Intro to CCDC #1** — what & why (open, anyone can attend) | Recruiting | Planned |
-| ~Feb 21 | Midwest Wildcard Round | CCDC season | 📅 |
+| Feb 6 | OH/MI/KY/IA/WI Qualifier (not UIC — awareness only) | CCDC | ✅ |
+| Feb | **Caught the Lovebug CTF** — WiCyS collab (est.) | CTF Group & WiCyS Experience Team | 📅 |
+| Feb 13 | **Illinois/Missouri State CCDC Qualifier** | CCDC season | ✅ |
+| Feb 17 | **Intro to CyberForce** — open recruiting kickoff | Recruiting | Planned |
+| Feb 20 | **Midwest Wildcard Qualifier** | CCDC season | ✅ |
+| Feb 25 | **CCDC 101** — open recruiting version | Recruiting | Planned |
 
-**Illinois State Qualifier (~Feb 14):**  
-This is the first round that counts for qualification. Must pass to advance
-to Regionals. Format mirrors the Invitational — same NISE platform, live
-red team, scored injects — but results determine advancement. Remote
-participation may be possible; confirm with Kevin Vaccaro.
+**IL/MO Qualifier (Feb 13):**
+First scored round. Must finish 1st in state to advance directly to
+Regionals. 2nd and 3rd place advance to the Wildcard on Feb 20. Every
+team has a path forward — losing the qualifier does not end the season.
 
-**Open Recruiting (Feb 17 onward):**  
-Spring is genuine open recruiting. Anyone can attend the Intro to CyberForce
-and Intro to CCDC sessions — not just current roster members. These sessions
-are deliberately beginner-friendly. The goal is to identify and warm up the
-2027–28 roster while the current team is competing.
+**Wildcard (Feb 20):**
+2nd and 3rd place finishers from every state qualifier compete. Top
+finishers advance to Regionals. This is UIC's fallback path if the
+Qualifier does not go as planned.
+
+**Qualifier fee:** $500 per team. No additional charge if the team
+advances to Regionals or Wildcard.
 
 ---
 
@@ -238,23 +184,21 @@ are deliberately beginner-friendly. The goal is to identify and warm up the
 
 | Date | What | Track | Status |
 |------|------|-------|--------|
-| Mar 2 | **Intro to CCDC #2** — how it works (open recruiting) | Recruiting | Planned |
-| Mar 9 | **Spring CTF** — open, beginner-friendly | CTF Group | Planned |
+| Mar 2 | **CCDC Deep Dive** — open recruiting version | Recruiting | Planned |
+| Mar | **Into the Flame** — open, beginner-friendly | CTF Group & WiCyS Experience Team | Planned |
 | ~Mar 15–21 | Spring Break — no events | — | 📅 |
-| ~Mar 20–21 | **MWCCDC Regionals** — Purdue University Northwest (est.) | CCDC season | 📅 |
+| Mar 19–20 | **MWCCDC Regionals** — Erich J. Spengler | CCDC season | ✅ |
 | Mar 23 | Roster-building workshop | Recruiting | Planned |
 | Mar 30 | Roster-building workshop | Recruiting | Planned |
 
-**MWCCDC Regionals (~Mar 20–21):**  
-Two full days at Purdue University Northwest (2026 location — 2027 host TBD).
-Twelve teams from across the Midwest. Winner advances to Nationals. Second
-place advances to the National Wildcard. This is the target for UIC's first
-competitive CCDC season.
+**MWCCDC Regionals (Mar 19–20):**
+Erich J. Spengler Midwest Regional CCDC. Two full days, in-person.
+2026 host was Purdue University Northwest — 2027 host TBD. Twelve teams
+from across the Midwest. Winner advances to Nationals. No additional fee
+beyond the $500 Qualifier entry.
 
-**Roster-building workshops (Mar 23 / Mar 30):**  
-Hands-on sessions for prospective 2027–28 members. Not lectures — actual
-practice on systems relevant to both competitions. Designed to give new
-members real reps before they commit to the roster.
+**Over 40 Midwest teams** are anticipated for the 2027 season — a record
+number. Competition at the Qualifier level will be stronger than prior years.
 
 ---
 
@@ -262,105 +206,120 @@ members real reps before they commit to the roster.
 
 | Date | What | Track | Status |
 |------|------|-------|--------|
-| ~Apr | Byte the Flame CTF — WiCyS collab (est.) | CTF Group | 📅 |
-| ~Apr 5–11 | Capture the Flame — WiCyS flagship CTF (est.) | WiCyS | 📅 |
-| ~Apr 24–26 | **National CCDC** (est.) | CCDC season | 📅 |
+| ~Apr | Byte the Flame CTF | CTF Group & WiCyS Experience Team | 📅 |
+| ~Apr | Capture the Flame — WiCyS flagship CTF (est.) | WiCyS | 📅 |
+| Apr 2027 | **National CCDC** | CCDC season | ✅ (month only) |
 | Apr 20 | Roster-building / summer registration push | Recruiting | Planned |
-| Apr 27 | Dev team applications (2027–28) + leadership positions open | Both | Planned |
+| Apr 27 | Dev team app (2027–28) + leadership positions open | Both | Planned |
 
-**National CCDC (~Apr 24–26):**  
-Under new NCRF stewardship — host site and format for 2027 not yet confirmed
-(2026 was virtual). Only the Regionals winner advances directly; second place
-goes to the National Wildcard (~Apr 8 est.).
+**National CCDC (April 2027):**
+Exact dates not yet published. Under NCRF stewardship — host site TBD.
+Monitor ccdc.io for updates.
 
-**Leadership and dev team apps (Apr 27):**  
-This is the handoff moment. New leadership positions open for 2027–28.
-Dev team applications open for the CTF group. Anyone who came through
-spring recruiting and wants a larger role should be encouraged to apply.
+---
+
+## The Full CCDC Season at a Glance
+
+```
+Oct 24          — Invitational 1 ✅ ($100)
+Nov 7           — Invitational 2 ✅ ($100)
+[Nov 14 skipped — conflicts with CyberForce Competition]
+        ↓
+Feb 13          — IL/MO State Qualifier ✅ ($500)
+        ↓
+Feb 20          — Midwest Wildcard (2nd/3rd place from Qualifier) ✅
+        ↓
+Mar 19–20       — MWCCDC Regionals ✅ (no added fee)
+        ↓
+Apr 2027        — National CCDC ✅ (no added fee)
+```
+
+**Wildcard eligibility:** 2nd and 3rd place in each state qualifier
+advance to Wildcard. Top Wildcard finishers advance to Regionals.
+There are more paths to Regionals than just winning the state qualifier.
 
 ---
 
 ## Time Commitment Summary
 
 ### CyberForce
-| Phase | When | Per Week | Notes |
-|-------|------|----------|-------|
-| Prep | Sept–Oct 25 | ~2 hrs | Events, meetings, studying |
-| Contract period | Oct 26–Nov 14 | 3–5 hrs | Active hardening + documentation |
-| Competition | Nov 13–14 | Full day | In-person |
+| Phase | When | Per Week |
+|-------|------|----------|
+| Prep | Sept–Oct 25 | ~2 hrs |
+| Contract period | Oct 26–Nov 14 | 3–5 hrs |
+| Competition | Nov 13–14 | Full day |
 
 ### CCDC
-| Phase | When | Per Week | Notes |
-|-------|------|----------|-------|
-| Formation | Sept 24/29 | 1 session each | Two formation events |
-| Invitational prep | Oct | Overlaps with CyberForce | Dress rehearsal |
-| Invitational | Est. Oct/Nov | Half day (virtual) | Unscored dry run |
-| Winter drilling | Dec–Jan | 2–3 hrs | AD, Palo Alto, team drills |
-| Qualifier | ~Feb 14 | Full day | First scored round |
-| Regionals | ~Mar 20–21 | Two full days | In-person at Purdue NW |
-| Nationals | ~Apr 24–26 | Three days | If team advances |
+| Phase | When | Per Week |
+|-------|------|----------|
+| Formation | Sept 24/29 | 1 session each |
+| Invitational 1 | Oct 24 | Half day (virtual) |
+| Invitational 2 | Nov 7 | Half day (virtual) |
+| Winter drilling | Dec–Jan | 2–3 hrs |
+| IL/MO Qualifier | Feb 13 | Full day |
+| Wildcard (if needed) | Feb 20 | Full day |
+| Regionals (if qualified) | Mar 19–20 | Two full days |
+| Nationals (if qualified) | Apr 2027 | TBD |
 
 ---
 
-## Critical Deadlines — Do Not Miss These
+## Critical Deadlines
 
 ### CyberForce
 | Deadline | What | Consequence |
 |----------|------|-------------|
 | Mid-July | Registration | Teams rejected if late |
-| ~Early Nov | C-Suite video due | Cannot compete if not submitted |
-| ~Early-Mid Nov | Security documentation due | Cannot compete if not submitted |
-| Nov 13–14 ✅ | Competition day | Obviously |
+| ~Early Nov | C-Suite video due | Cannot compete |
+| ~Early-Mid Nov | Security documentation due | Cannot compete |
+| Nov 13–14 ✅ | Competition day | — |
 
 ### CCDC
 | Deadline | What | Consequence |
 |----------|------|-------------|
-| Before first Invitational (est. mid-Oct) | Team registered | Cannot participate in Invitational |
+| Before Oct 24 | Register + $100/event fee | Cannot compete in Invitational |
 | ~Late Jan | National registration deadline | Cannot compete in Qualifier |
-| ~Feb 14 | Illinois State Qualifier | Must pass to advance |
-| ~Mar 20–21 | MWCCDC Regionals | Must qualify to attend |
+| Feb 13 ✅ | IL/MO State Qualifier | Must place 1st–3rd to advance |
+| Feb 20 ✅ | Wildcard | Must qualify from state |
+| Mar 19–20 ✅ | MWCCDC Regionals | Must qualify |
 
 ---
 
-## 📍 Location Reference
+## Location Reference
 
-| Event | Location | Notes |
-|-------|----------|-------|
-| All UIC events | On campus — rooms booked | See Discord for room details |
-| CCDC Invitationals | Virtual | Remote — confirm login details via NISE |
-| CCDC Qualifier | TBD — may be remote | Confirm with Kevin Vaccaro |
-| MWCCDC Regionals | Purdue University Northwest (2026) | 2027 host TBD |
-| National CCDC | TBD | 2026 was virtual; 2027 host not yet announced |
-| CyberForce Competition | Tinley Park Convention Center, 18451 Convention Center Dr, Tinley Park, IL 60477 |
+| Event | Location |
+|-------|----------|
+| All UIC events | On campus — see Discord for room details |
+| CCDC Invitationals | Virtual |
+| IL/MO Qualifier | TBD — confirm via caeepnc.org/mwccdc/ |
+| MWCCDC Regionals | TBD — 2026 was Purdue University Northwest |
+| National CCDC | TBD — monitor ccdc.io |
+| CyberForce Competition | Tinley Park Convention Center |
 
 ---
 
 ## Common Questions
 
-**When do I register for CyberForce?**  
-Registeration for CyberForce 2026 opened July 20 at 9 AM CT
+**Which Invitationals are we doing?**
+Oct 24 and Nov 7 only. Nov 14 conflicts with the CyberForce Competition.
 
-**When do I register for CCDC?**  
-National registration opens Oct 1. The roster does not need to be final
-at registration. Real deadline: before the first Invitational (est. mid-Oct).
+**Do we need national registration before the Invitationals?**
+No — national registration (ccdc.io, opens Oct 1) is not required to
+compete in Invitationals. Register before the Qualifier deadline.
 
-**What if I can't make competition day for CyberForce?**  
-Tell your team captain immediately. The team needs 4–6 people present.
-If you have a conflict with Nov 13–14, raise it now — not in October.
+**What does the $500 Qualifier fee cover?**
+Entry into the IL/MO State Qualifier. No additional charge if the team
+advances to Wildcard, Regionals, or Nationals.
 
-**What if we don't advance past the CCDC Qualifier?**  
-The season ends there for this year's team. Spring events shift fully to
-open recruiting and roster building for 2027–28. Debrief seriously and
-document lessons learned — that is the most valuable thing you can leave
-for next year.
+**What if we finish 2nd or 3rd at the Qualifier?**
+You advance to the Wildcard on Feb 20. 2nd and 3rd place from every
+state qualifier compete there. Top finishers advance to Regionals.
+Losing the Qualifier does not end the season.
 
-**When do official dates override these estimates?**  
-Always. The moment MWCCDC publish official dates, those
-replace everything marked 📅.
+**When do official dates override estimates?**
+Always. Monitor caeepnc.org/mwccdc/ and ccdc.io for updates.
 
 ---
 
-*Last updated: August 2026*  
-*CyberForce dates: cyberforce.energy.gov*  
-*CCDC dates: caeepnc.org/mwccdc/ and ccdc.io*  
-*Illinois CCDC contact: Kevin Vaccaro — vaccaro@morainevalley.edu*
+*Last updated: September 2026*  
+*CyberForce: cyberforce.energy.gov*  
+*CCDC: caeepnc.org/mwccdc/ and ccdc.io*
