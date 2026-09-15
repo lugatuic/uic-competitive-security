@@ -515,6 +515,6 @@ Hunters for an incident report that scores well.
 
 - [cyberforce101.md](../../docs/cyberforce101.md)
 - [shared-foundations.md](../../docs/shared-foundations.md)
-- [green-team.md](green-team.md)
-- [vuln-hunters.md](vuln-hunters.md)
-- [competition-prep/cyberforce/week-by-week.md](../week-by-week.md)
+- [Green Team Guide](green_team_guide.md)
+- [Vulnerability Hunter Guide](vuln_hunter_guide.md)
+- [CyberForce Technical Prep](../cyberforce-technical-prep.md)

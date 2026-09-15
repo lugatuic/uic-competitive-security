@@ -287,6 +287,6 @@ team tests everything else.
 
 - [cyberforce101.md](../../docs/cyberforce101.md)
 - [shared-foundations.md](../../docs/shared-foundations.md)
-- [vuln-hunters.md](vuln-hunters.md)
-- [monitoring-hardening.md](monitoring-hardening.md)
-- [competition-prep/cyberforce/week-by-week.md](../week-by-week.md)
+- [Vulnerability Hunter Guide](vuln_hunter_guide.md)
+- [Monitoring & Hardening Guide](monitoring+hardening_guide.md)
+- [CyberForce Technical Prep](../cyberforce-technical-prep.md)

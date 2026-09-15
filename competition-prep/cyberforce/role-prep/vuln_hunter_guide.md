@@ -340,6 +340,6 @@ controls were never reviewed during the contract period.
 
 - [cyberforce101.md](../../docs/cyberforce101.md)
 - [shared-foundations.md](../../docs/shared-foundations.md)
-- [monitoring-hardening.md](monitoring-hardening.md)
-- [green-team.md](green-team.md)
-- [competition-prep/cyberforce/week-by-week.md](../week-by-week.md)
+- [Monitoring & Hardening Guide](monitoring+hardening_guide.md)
+- [Green Team Guide](green_team_guide.md)
+- [CyberForce Technical Prep](../cyberforce-technical-prep.md)
