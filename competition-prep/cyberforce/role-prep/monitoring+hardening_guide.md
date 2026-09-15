@@ -1,537 +1,520 @@
-================================================================================
-# Monitoring & Hardening Technical Prep
-Defensive Infrastructure & Security Monitoring
+# Monitoring & Hardening Role — Technical Prep Guide
 
-**Last updated:** August 2026  
-**For:** Monitoring & Hardening role (2 people per CyberForce team)  
-**Time to read:** 45 min
+**Last updated:** September 2026  
+**Owner:** AJ  
+**For:** Monitoring & Hardening competitors and team captains
 
 ---
 
-## Monitoring & Hardening Overview
+## Role Overview
 
-**Your job:** Defend the network + detect/respond to attacks
+Monitoring and Hardening (2 people per team) is the defensive core of
+the team. It is also the most technically demanding role because it
+spans two completely different sets of responsibilities — fully
+hardening the Traditional VMs and monitoring-only on the Assume Breach
+VMs — with completely different rules governing each.
 
-**What this means:**
-- Harden systems BEFORE competition starts (strong baseline)
-- Monitor systems DURING competition (detect attacks)
-- Respond quickly when attacks detected (mitigate damage)
-- Maintain uptime while under attack (keep services running)
-- Document everything (needed for security documentation)
-
-**Why it matters:**
-- Hardening PREVENTS exploits (proactive defense)
-- Monitoring DETECTS attacks (reactive defense)
-- Response speed MINIMIZES damage (tactical defense)
-- Uptime = points 
-- System knowledge = foundation (other roles build on this)
+Understanding the distinction between Traditional and Assume Breach is
+not optional. Confusing them during competition is a rules violation
+that can cost points and flag a compliance issue with the White Team.
 
 ---
 
-## Prerequisites
+## What You Own
 
-Before starting this section, you should:
-- [ ] Comfortable navigating Linux + Windows systems
-- [ ] Basic understanding of networking (ports, services, firewalls)
-- [ ] Willingness to read logs + debug systems
-- [ ] Patience (hardening is tedious + detail-oriented)
+**Traditional VMs — full control:**
+- DB: Windows Server 2022, MariaDB + phpMyAdmin
+- AD: Windows Server 2019, Active Directory + DNS
+- Task box: Ubuntu 22.04, SSH/SMTP/IMAP/SMB
 
-**If you don't have these:** Read [`/resources/technical-prep/technical-prep.md`](https://github.com/lugatuic/lug-cyberforce-curriculum/blob/main/resources/technical-prep/technical-prep.md) fundamentals first.
+**Assume Breach VMs — monitor only, no configuration changes:**
+- HMI: Windows Server 2019, Ignition Gateway (port 8088)
+- PLC: Ubuntu 22.04, OpenPLC (port 8080, Modbus TCP port 502)
 
----
-
-## What You'll Be Defending
-
-### **Traditional Infrastructure (Hardened by You)**
-
-Systems you can configure before competition when phase 2 starts once rulebook+servers are released:
-
-- **Web Server (Linux: OpenSUSE Leap 15)**
-  - Services: HTTP (nginx), SSH, NFS
-  - Your job: Harden these services, remove unnecessary ones
-
-- **Task Box (Linux: Ubuntu 22.04)**
-  - Services: SSH, SMTP, IMAP, SMB (some might be unnecessary)
-  - Your job: Disable unused services, harden enabled ones
-
-- **Database Server (Windows Server 2022)**
-  - Services: SMB, phpmyadmin (HTTP), MariaDB, RDP
-  - Your job: Set strong DB passwords, firewall rules, Windows hardening
-
-- **AD/DNS Server (Windows Server 2019)**
-  - Services: LDAP (Active Directory), WinRM
-  - Your job: Set strong AD passwords, Group Policy hardening
-
-### **Assume Breach Infrastructure (Intentionally Vulnerable)**
-
-Systems you CANNOT harden (but must monitor + respond):
-
-- **HMI (Windows Server 2019)** - Human Machine Interface for industrial control
-- **PLC (Ubuntu 22.04)** - Programmable Logic Controller
-
-**Important:** Red team will attack these systems. Your job is to detect attacks QUICKLY + document what happened.
+**Shared responsibility with Green Team:**
+- Webserver firewall rules that affect HTTP/HTTPS traffic — coordinate
+  any changes with Green Team before implementing
 
 ---
 
-## Learning Path
+## The Rule That Cannot Be Broken
 
-### **1: Linux Hardening Fundamentals**
+**Do not touch the configuration on HMI or PLC. Ever.**
 
-**Goal:** Understand Linux security best practices
+No password changes. No patches. No firewall rules. No service
+modifications. No restarting services. The configuration on both
+Assume Breach VMs is locked — your only job on these machines is to
+watch what happens and document it.
 
-**Read:**
-- CIS Linux Benchmarks: https://www.cisecurity.org/cis-benchmarks/
-  - Focus on: User management, permissions, services, authentication
-- Linux security basics:
-  - User + group management (sudoers, groups)
-  - File permissions (chmod, umask, ACLs)
-  - Service management (systemctl, disabling services)
-  - SSH hardening (key-based auth, disable root login)
-
-**Practice:**
-- [ ] Create Linux VM (VirtualBox)
-- [ ] Create users + set permissions
-- [ ] Configure SSH key-based auth
-- [ ] Disable unnecessary services
+If you accidentally modify an Assume Breach VM, report it to the
+White Team via Support Ticket immediately.
 
 ---
 
-### **2: Windows Hardening Fundamentals**
+## How CyberForce Access Works
 
-**Goal:** Understand Windows security configuration
+CyberForce gives your team a **~3 week contract period** (Oct 26 –
+Nov 14) of SSH access to all Traditional VMs before and during
+competition day. This is the window where the majority of hardening
+happens — not on competition day itself.
 
-**Read:**
-- Windows Security Baseline: https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines
-- Focus on:
-  - Password policy (strength, age)
-  - User account control (UAC)
-  - Firewall configuration
-  - Service startup settings
-  - Group Policy basics
+**Competition day (Nov 14)** is about active defense and incident
+response, not setup. Systems should be hardened, monitored, and stable
+by the time the red team goes live.
 
-**Practice:**
-- [ ] Create Windows VM (VirtualBox)
-- [ ] Set strong password policy
-- [ ] Configure Windows Firewall
-- [ ] Disable unnecessary services
+Use every day of the contract period. Teams that wait until the final
+week to harden consistently run out of time.
 
 ---
 
-### **3: Logging & Log Analysis**
+## Contract Period Timeline — Monitoring & Hardening
 
-**Goal:** Understand what logs tell you + how to find attacks
+**Week 1 (Oct 26 – Nov 1): Credential changes and initial hardening**
+- Change all default credentials on Traditional VMs immediately on
+  Oct 26 — report every scored service password change to White Team
+  via Support Ticket before moving on
+- AD: audit all accounts and privileged groups, enable audit logging,
+  enforce password and lockout policy via GPO
+- Task box: harden SSH, audit users and services, configure ufw
+- DB: change MariaDB root password, harden phpMyAdmin access,
+  restrict remote database connections
+- Coordinate with Hunters on enumeration findings — they will scan
+  your Traditional VMs and surface vulnerabilities for you to fix
+- Get familiar with the ICS environment — review OpenPLC monitoring
+  dashboard and Ignition views, understand normal values before you
+  need to spot anomalies
 
-**Linux Logs:**
-- `/var/log/auth.log` — Authentication attempts (who logged in when)
-- `/var/log/syslog` — System messages
-- `/var/log/audit/audit.log` — Detailed system activity (if auditd installed)
-- Application logs — Varies by service (nginx, MySQL, etc.)
+**Week 2 (Nov 2 – Nov 8): Deep hardening and monitoring setup**
+- Continue hardening based on Hunter enumeration findings
+- Set up log forwarding to Splunk if available
+- Configure monitoring on Traditional VMs — Windows Event logging,
+  Linux auth logs
+- Verify all scored services are still running after hardening changes
+  (use curl and telnet to test each one)
+- Document everything changed for Green Team's Security Documentation
 
-**Windows Logs:**
-- Event Viewer > Security — Security events (logins, privilege changes)
-- Event Viewer > System — System errors + warnings
-- Event Viewer > Application — Application events
-
-**Practice:**
-- [ ] View Linux logs (`tail -f /var/log/auth.log`)
-- [ ] Watch logs in real-time 
-- [ ] Identify failed login attempts
-- [ ] View Windows Event Viewer
-- [ ] Identify security events
-
----
-
-### **4: Firewall Configuration**
-
-**Goal:** Restrict network access to only required services
-
-**Linux Firewalls (UFW):**
-- Allow only required ports/services
-- Deny everything else
-- Practice:
-  ```bash
-  sudo ufw default deny incoming
-  sudo ufw default allow outgoing
-  sudo ufw allow 22/tcp              # SSH
-  sudo ufw allow 80/tcp              # HTTP
-  sudo ufw allow 443/tcp             # HTTPS
-  sudo ufw enable
-  ```
-
-**Windows Firewall:**
-- Configure inbound/outbound rules
-- Allow required services
-- Deny suspicious traffic
-- Practice via GUI + PowerShell
-
-**Key concept:** Principle of least privilege — only allow what's necessary
-
+**Week 3 (Nov 9 – Nov 13): Final checks and competition prep**
+- Final enumeration sweep — verify the state of every Traditional VM
+- Confirm ICS monitoring workflow with Hunters — how anomalous
+  behavior gets surfaced and documented
+- Verify Ignition Gateway OPC UA connection to PLC is stable
+- Confirm all scored services are responding correctly
+- Competition Day (Nov 14): active defense — monitor for red team
+  activity, respond to intrusions, keep scored services running
 
 ---
 
-### **5: Monitoring Tools**
+## Technical Prep — Traditional VMs
 
-**Goal:** Know which tools to use for monitoring
+### Priority 1: Active Directory (AD VM)
 
-**Wazuh (Intrusion Detection + Log Analysis)**
-- https://wazuh.com/
-- **What:** Agent-based threat detection system
-- **Why:** Detects attacks via log analysis + file integrity monitoring
-- **Setup:** Install manager + agents on systems
-- **Key ports:** Manager 1514/1515/1516/55000, Indexer 9200/9300
+AD is the red team's highest-value target on the Traditional side.
+Harden AD first. Everything else waits.
 
-**Prometheus (Metrics Monitoring)**
-- https://prometheus.io/
-- **What:** Time-series database for system metrics
-- **Why:** Monitor CPU, memory, disk, network in real-time
-- **Setup:** Install + configure scrape targets
+**Week 1 — do these immediately at contract start:**
 
-**Zeek (Network Monitoring)**
-- https://zeek.org/
-- **What:** Advanced network traffic analysis
-- **Why:** Log all network connections for forensics
-- **Setup:** Install + configure on gateway
-
-**Bloodhound (AD Vulnerabilities)**
-- https://github.com/BloodHoundAD/BloodHound
-- **What:** Visualize Active Directory attack paths
-- **Why:** Identify privilege escalation routes in AD
-- **Setup:** Install Community Edition
-
----
-
-### **6: Audit Logs & System Monitoring**
-
-**Goal:** Use detailed logs to detect + respond to attacks
-
-**auditctl (Linux Audit Framework)**
-- Track system calls + events
-- **Key use:** Detect file modifications, command execution
-- **Practice:**
-  ```bash
-  sudo auditctl -w /etc/passwd -p wa    # Monitor passwd file changes
-  sudo auditctl -a always,exit -F arch=b64 -S execve -k exec  # Monitor commands
-  sudo aureport --summary                # View reports
-  sudo ausearch -k exec                  # View executions
-  ```
-
-**Blue Team Dashboard (Real-time Monitoring)**
-- **Command:**
-  ```bash
-  sudo watch -n 2 '
-    echo "==== RUNNING PROCESSES ====";
-    ausearch -k command-execution | tail -10;
-    echo "";
-    echo "==== RECENT FILE CHANGES ====";
-    ausearch -ts recent -f | tail -5;
-  '
-  ```
-- **What:** Updates every 2 seconds, shows suspicious activity
-- **Why:** Quick way to spot attacks during competition
-
----
-
-## Hardening Process (During Prep)
-
-### **Stage 1: Reconnaissance**
-
-**Your goal:** Understand the systems completely
-
-1. **Enumerate everything**
-   ```bash
-   nmap -sV 10.0.190.0/27              # What services are running?
-   ```
-
-2. **List all accounts** (who shouldn't be there?)
-   ```bash
-   cat /etc/passwd
-   net user                            # Windows
-   ```
-
-3. **Check permissions** (what's accessible to what users?)
-   ```bash
-   ls -la /etc/
-   icacls C:\                          # Windows
-   ```
-
-4. **Review startup programs** (unnecessary things running?)
-   ```bash
-   systemctl list-unit-files | grep enabled
-   Get-Service | Where-Object {$_.StartType -eq 'Automatic'}  # Windows
-   ```
-
-5. **Create network diagram** (visual of systems)
-   - Document every host + service
-
----
-
-### **Stage 2: Hardening**
-
-**For each system, do:**
-
-**Remove unnecessary services**
-```bash
-sudo systemctl disable telnet.service  # Disable old/insecure services
-sudo systemctl stop telnet.service
+Change the built-in Administrator password:
+```powershell
+net user Administrator [new-strong-password]
 ```
 
-**Set strong credentials**
-```bash
-# Change default passwords
-sudo passwd username                   # Linux
-net user Administrator NewPassword     # Windows
+Rename the built-in Administrator account:
+```powershell
+# Via Group Policy: Computer Config → Windows Settings →
+# Security Settings → Local Policies → Security Options →
+# Accounts: Rename administrator account
 ```
 
-**Configure authentication**
-- SSH key-based auth only (disable password login)
-- Windows: Strong password policy
-- AD: Enforce complex passwords
+Audit all domain accounts:
+```powershell
+# List all users
+Get-ADUser -Filter * | Select Name, Enabled, PasswordNeverExpires
 
-**Set permissions correctly**
-```bash
-# Remove overly permissive access
-chmod 640 /etc/shadow                  # Only root can read
-chmod 750 /etc/sudoers.d/              # Only root can modify sudo
+# Find accounts with password never expires
+Get-ADUser -Filter {PasswordNeverExpires -eq $true} | Select Name
+
+# Find disabled accounts
+Get-ADUser -Filter {Enabled -eq $false} | Select Name
+
+# Check last logon
+Get-ADUser -Filter * -Properties LastLogonDate |
+  Select Name, LastLogonDate | Sort LastLogonDate
 ```
 
-**Harden services**
-- Nginx: Disable server tokens, set security headers
-- SSH: Disable root login, set PermitEmptyPasswords no
-- Database: Change default passwords, limit network access
+Audit privileged group memberships — document the baseline:
+```powershell
+# Domain Admins
+Get-ADGroupMember "Domain Admins" | Select Name, SamAccountName
 
-**Configure firewalls**
-- UFW (Linux): Allow only required ports
-- Windows Firewall: Same principle
+# Enterprise Admins
+Get-ADGroupMember "Enterprise Admins" | Select Name, SamAccountName
 
+# Schema Admins
+Get-ADGroupMember "Schema Admins" | Select Name, SamAccountName
+```
 
----
+**Group Policy settings to enforce:**
+- Account lockout: threshold 5 attempts, duration 30 min,
+  observation window 30 min
+- Password policy: minimum 12 characters, complexity required,
+  history 10 passwords
+- Audit policy: logon events, account management, privilege use,
+  object access — all set to Success and Failure
+- Restricted groups: enforce Domain Admins membership
 
-### **Stage 3: Monitoring Setup**
+**DNS — keep it healthy:**
+AD authentication depends on DNS. If DNS breaks, POP3 scoring stops
+because POP3 authenticates via AD accounts.
 
-**Install monitoring systems**
+```powershell
+# Verify DNS is resolving correctly
+nslookup [domain-name]
+Resolve-DnsName [domain-name]
 
-1. **Wazuh agent** on each system
-   - Collect logs
-   - Alert on suspicious activity
+# Check DNS zones
+Get-DnsServerZone
+```
 
-2. **Audit daemon** (Linux)
-   - Monitor file changes
-   - Track command execution
+Never change DNS server settings without verifying AD still
+authenticates correctly afterward.
 
-3. **Prometheus** (if using)
-   - Monitor metrics
-   - Set alerts for anomalies
+**What to watch for throughout competition day:**
 
-4. **Configure dashboards**
-   - View real-time alerts
-   - See what's happening
-
----
-
-## During Competition: Detection & Response
-
-### **Stage 1: Continuous Monitoring (Competition Day)**
-
-**Your job:** Watch for attacks
-
-**Every hour, check:**
-1. **Log files** (any suspicious activity?)
-   ```bash
-   tail -50 /var/log/auth.log           # Recent logins
-   tail -50 /var/log/audit/audit.log    # Recent commands
-   ```
-
-2. **Running processes** (anything unexpected?)
-   ```bash
-   ps aux | grep -v grep               # What's running?
-   ```
-
-3. **Network connections** (unauthorized traffic?)
-   ```bash
-   ss -tulpn | grep LISTEN             # Open ports
-   netstat -tulpn                      # All connections
-   ```
-
-4. **File changes** (modified systems?)
-   ```bash
-   find /etc -type f -mtime -1         # Files changed in last day
-   ```
-
-5. **System resources** (under attack - high CPU/memory?)
-   ```bash
-   top
-   free -h                             # Memory usage
-   ```
+| Event ID | What It Means | Action |
+|---|---|---|
+| 4624 | Successful logon | Note source IP if unexpected |
+| 4625 | Failed logon | Spike = brute force attempt |
+| 4720 | New user created | Red team persistence — investigate |
+| 4728/4732 | User added to group | Check if it was Domain Admins |
+| 4672 | Special privileges assigned | Admin logon — expected or not? |
+| 4776 | Credential validation | Failed = brute force |
 
 ---
 
-### **Stage 2: Attack Detection & Response (During Competition)**
+### Priority 2: Task Box (Ubuntu 22.04)
 
-**When you detect an attack:**
+Multiple scored services run here — SSH, SMTP, IMAP, SMB. Every
+service you accidentally break costs Blue Team (20%) uptime points.
+Verify each service after every change.
 
-1. **Log everything** (for documentation)
-   - What happened?
-   - When?
-   - How did you detect it?
+**Week 1 — immediate actions:**
 
-2. **Isolate the issue** (if safe)
-   - Kill rogue processes
-   - Remove suspicious cron jobs
-   - Block attacking IP (firewall)
+Change default credentials first:
+```bash
+# Change password
+passwd sysadmin
+# Report to White Team via Support Ticket immediately
+```
 
-3. **Mitigate** (stop it from spreading)
-   - Apply security patch
-   - Change compromised passwords
-   - Remove backdoors
+SSH hardening:
+```bash
+sudo nano /etc/ssh/sshd_config
 
-4. **Restore** (get back to normal)
-   - Restart service if needed
-   - Verify system integrity
-   - Ensure required services still work
+# Set these values:
+PermitRootLogin no
+MaxAuthTries 3
+Protocol 2
+AllowUsers sysadmin [your-team-users]
 
-5. **Document** (for security documentation)
-   - What was the vulnerability?
-   - How did attacker exploit it?
-   - How did you detect it?
-   - What did you do to fix it?
+# Restart and verify
+sudo systemctl restart sshd
+# Verify SSH still works before closing current session
+ssh sysadmin@localhost
+```
 
----
+User and group audit:
+```bash
+# All users with login shells
+grep -v '/nologin\|/false' /etc/passwd
 
-## 💡 Common Mistakes to Avoid
+# Sudo access
+sudo -l
+cat /etc/sudoers
 
-❌ **Over-hardening and breaking services**
-- Disable SSH, now can't access system remotely
-- Tighten firewall, now required service is blocked
-- → System down, lost uptime points
+# SUID binaries (privilege escalation risk)
+find / -perm -4000 -type f 2>/dev/null
 
-✅ **How to avoid:**
-- Test hardening in lab first
-- Verify required services still work
-- Have rollback plan (snapshots, backups)
+# World-writable files
+find / -perm -o+w -type f 2>/dev/null
+```
 
----
+Service audit — disable what is not needed:
+```bash
+# List running services
+systemctl list-units --type=service --state=running
 
-❌ **Ignoring monitoring**
-- Only hardening, no monitoring setup
-- Attack happens, don't detect it
-- Red team freely exploits system
-- → Lost points, lost uptime
+# List open ports
+ss -tulnp
 
-✅ **How to avoid:**
-- Set up monitoring DURING prep
-- Configure alerts
-- Practice responding to alerts
+# Disable unnecessary services
+sudo systemctl stop [service]
+sudo systemctl disable [service]
+```
 
----
+Firewall (ufw):
+```bash
+sudo ufw enable
+sudo ufw allow 22/tcp    # SSH
+sudo ufw allow 25/tcp    # SMTP
+sudo ufw allow 143/tcp   # IMAP
+sudo ufw allow 445/tcp   # SMB
+sudo ufw status verbose
+```
 
-❌ **Making enemies of hunters**
-- Hunters try to enumerate, you blocked all ports
-- Green team can't access web app, you set firewall too strict
-- → Team conflict during competition
+**After every firewall change — verify scored services:**
+```bash
+# Test SMTP
+telnet localhost 25
 
-✅ **How to avoid:**
-- Work with hunters to understand what MUST be accessible
-- Only block unnecessary services
-- Communicate before major changes
+# Test IMAP
+telnet localhost 143
 
----
-
-❌ **Not documenting**
-- Harden system, fix vulnerabilities, forget what you did
-- Can't explain to orange team (C-suite)
-- → Lost documentation points
-
-✅ **How to avoid:**
-- Keep detailed notes (what you hardened + why)
-- Screenshots of configuration
-- List of vulnerabilities found + mitigations
-
----
-
-## Prep Timeline Example
-
-| Week | Goals |
-|------|-------|
-| **Sept 1** | Read this page |
-| **Sept 2** | Linux hardening fundamentals |
-| **Sept 3** | Windows hardening fundamentals |
-| **Sept 4–5** | Logging & log analysis practice |
-| **Sept 6–7** | Firewall configuration practice |
-| **Sept 8–9** | Monitoring tools setup (local) |
-| **Sept 10–11** | Audit logs + blue team dashboard |
-| **Oct 1–31** | Practice hardening VMs |
-| **Nov 1–7** | Scenario release: harden AWS systems |
-| **Nov 8–13** | Finalize monitoring + respond to testing |
-| **Nov 14** | Competition day! |
+# Test SSH
+ssh sysadmin@localhost
+```
 
 ---
 
-## Additional Resources
+### Priority 3: DB VM (Windows Server 2022)
 
-### **Hardening References**
+The Laravel application on the webserver connects to MariaDB here.
+If the database goes down or credentials change without coordinating
+with Green Team, the application breaks.
 
-**Linux:**
-- CIS Linux Benchmarks: https://www.cisecurity.org/cis-benchmarks/
-- Ubuntu security guide: https://wiki.ubuntu.com/SecurityTeam
+**Week 1 — immediate actions:**
 
-**Windows:**
-- Microsoft Security Baseline: https://learn.microsoft.com/en-us/windows/security/
-- Windows Hardening Guide: CISA guides
+Change Administrator password immediately. Report to White Team.
 
-### **Monitoring & Detection**
+MariaDB hardening:
+```sql
+-- Change root password
+ALTER USER 'root'@'localhost' IDENTIFIED BY '[new-password]';
 
-**Wazuh:**
-- Official docs: https://documentation.wazuh.com/
-- YouTube tutorials
+-- Remove anonymous users
+DELETE FROM mysql.user WHERE User='';
 
-**Zeek:**
-- Official docs: https://docs.zeek.org/
-- Example scripts
+-- Remove remote root login
+DELETE FROM mysql.user WHERE User='root'
+  AND Host NOT IN ('localhost', '127.0.0.1');
 
-**Prometheus:**
-- Official docs: https://prometheus.io/docs/
+-- Remove test database
+DROP DATABASE IF EXISTS test;
 
----
+-- Flush privileges
+FLUSH PRIVILEGES;
+```
 
-## Pre-Competition Checklist
+phpMyAdmin hardening:
+- Restrict access to localhost only if possible
+- Change login credentials
+- Consider disabling phpMyAdmin if the application does not need it
+  during competition — it is a high-value red team target
 
-By October 31, you should be able to:
-- [ ] Explain Linux vs Windows hardening differences
-- [ ] Configure SSH key-based authentication
-- [ ] Set strong password policies (both OS)
-- [ ] Configure firewall rules (both OS)
-- [ ] Disable unnecessary services
-- [ ] Read and interpret Linux logs
-- [ ] Use Windows Event Viewer
-- [ ] Install + configure Wazuh agent
-- [ ] Set up monitoring dashboards
-- [ ] Detect simulated attacks in logs
-- [ ] Respond to attack (isolate, mitigate, document)
-- [ ] Explain all hardening + monitoring decisions clearly
+**Coordinate with Green Team:** if you change MariaDB credentials,
+Green Team must update the Laravel `.env` file immediately or the
+application will throw database connection errors and stop serving
+pages. Never change DB credentials without telling Green Team first.
 
----
-
-## If You Get Stuck
-
-**For hardening help:** CIS Benchmarks + official OS hardening guides  
-**For monitoring help:** Tool documentation + YouTube tutorials  
-**For ideas:** Ask hunters about services they need accessible  
-**For response help:** Ask if hardening broke something (troubleshoot together)
-
-**Remember:** You can't get outside help during competition, but prep help is fine!
+Windows Firewall:
+- Block external access to port 3306 (MariaDB)
+- Only the webserver VM IP should be able to connect to MariaDB
 
 ---
 
-## Next Steps
+## Technical Prep — Assume Breach VMs
 
-1. [ ] Finish reading this page
-2. [ ] Set up Linux + Windows VMs (VirtualBox)
-3. [ ] Practice hardening 
-4. [ ] Install monitoring tools locally
-5. [ ] Practice hardening + monitoring together
-6. [ ] Any questions regarding this page? Reach out to @AJ
+### The ICS Environment — How It Works
+
+The HMI and PLC are an interconnected industrial control system. The
+PLC runs the physical control logic. The HMI is the operator interface.
+They communicate via Modbus TCP on port 502.
+
+```
+Physical Equipment (simulated)
+        ↑↓ Modbus protocol (port 502)
+PLC — Ubuntu 22.04, OpenPLC
+        ↑↓ OPC UA / Modbus TCP
+HMI — Windows Server 2019, Ignition Gateway (port 8088)
+        ↑↓
+Engineer/Operator views Ignition screens
+```
+
+**Use the contract period to get familiar with both VMs** — the
+Ignition views, the normal register values, the OpenPLC monitoring
+dashboard. You cannot harden them but you can learn what normal looks
+like so anomalies are obvious on competition day.
 
 ---
 
+### Monitoring the PLC (Ubuntu 22.04, OpenPLC)
 
-================================================================================
+**Access:** `<plc-ip>:8080` — credentials: `openplc:openplc`
+Do not change these. Assume Breach rule.
+
+**Normal register values — know these before competition day:**
+
+| Register | Normal Range | Alert If... |
+|---|---|---|
+| WellPressure | Below 5000.0 | Above 5000 → BOP fires |
+| WellTemp | Below 95.0 | Above 95 → BOP fires |
+| WellFlowRate | 0.17 – 10.42 | Outside range → oil gen stops |
+| SeparatorTemp | 20.0 – 90.0 | Outside → separator disables |
+| ExportPumpVibration | Below 5.0 | Above → export pump alert |
+| ExportPumpTemp | Below 95.0 | Above → export pump alert |
+| ExportPressure | Below 500.0 | Above → export pump alert |
+
+**Key coils to monitor:**
+
+| Coil | Normal State | Red Team Indicator If... |
+|---|---|---|
+| SafeToOperate | TRUE | Flips FALSE without fire/hurricane |
+| ESDActive | FALSE | Activates without threshold trigger |
+| BOP | FALSE | Activates without pressure/temp cause |
+| ManualOverride | FALSE | Activates unexpectedly |
+| FireDetected | FALSE | TRUE without scenario fire event |
+| WellValve | Varies | Changes without system logic cause |
+
+**Red team activity on the PLC looks like:**
+- Coil state changes that do not match system logic thresholds
+- SafeToOperate flipping FALSE without a scenario event
+- ManualOverride activating — disables automatic control logic
+- Unexpected Modbus write commands from non-HMI source IPs
+- PLC program status changing from Running to Stopped
+
+**Monitoring workflow during competition:**
+1. Check OpenPLC dashboard status (Running vs. Stopped) every 15–20
+   minutes
+2. Review the Monitoring tab — compare current coil and register
+   values against the normal ranges above
+3. Document anomalies immediately: timestamp, coil/register name,
+   value before and after, source IP if visible
+4. Alert Vulnerability Hunters immediately — they investigate and
+   draft the incident report
+
+---
+
+### Monitoring the HMI (Windows Server 2019, Ignition)
+
+**Access:** Ignition Gateway at `localhost:8088`
+Credentials: `blueteam:BlueTeam2025!` — do not change. Assume Breach.
+
+**The four Ignition views:**
+
+**Home page** — overall system status:
+- Weather (Sunny, Hurricane — affects system behavior)
+- Current and Total Oil Export in BBL
+- Fire Detection, Blowout Prevention System status
+- Flare Valve, Flare Pilot status
+- Crane controls bottom right — used for the ICS anomaly
+
+**Systems page** — individual sensors and direct controls:
+- Well Pressure/Valve/Temp sensors
+- Gas/Water/Oil Valve, Export Pump status
+- Fire Suppression Pump, Flare Valve
+- Start System / Stop System / Manual Override buttons
+- This is where a red team would interact with controls directly —
+  watch for state changes you did not initiate
+
+**Alarms page** — threshold-triggered alerts:
+- All system alarms with priority levels (Critical, High, Medium)
+- Active and cleared alarm history
+- A Critical alarm you did not trigger is a red team indicator
+
+**Charts page** — historical production data:
+- Oil output over time — sudden drops or spikes correspond to events
+- Use during the contract period to understand normal output patterns
+
+**Red team activity on the HMI looks like:**
+- New Critical alarms without corresponding system events
+- Systems page valve state changes you did not initiate
+- Manual Override activating on the Systems page
+- Stop System triggered unexpectedly
+- Ignition Gateway OPC UA connection to PLC dropping
+
+**Data Historian (MySQL, port 3306):**
+Read-only monitoring only — do not modify the database.
+```bash
+# View recent production data
+mysql -u blueteam -p -h localhost obsidianpearl
+SELECT * FROM production ORDER BY t_stamp DESC LIMIT 25;
+
+# View recent alarm events
+SELECT * FROM alarm_events ORDER BY t_stamp DESC LIMIT 25;
+```
+
+---
+
+### The ICS Anomaly — Your Role
+
+At 12:30 PM and 2:45 PM on competition day, a cargo ship arrives for
+resupply. Vulnerability Hunters execute the crane interactions via
+the HMI Home page — that is not your job.
+
+**Your job:** ensure HMI and PLC are operational when the anomaly
+windows open.
+
+**Pre-anomaly checklist (before 12:15 PM and 2:30 PM):**
+- Confirm PLC is Running in the OpenPLC dashboard
+- Confirm Ignition Gateway OPC UA connection to PLC shows Connected
+- Confirm HMI Home page is loading and showing current system status
+- Alert Vulnerability Hunters that the anomaly window is approaching
+
+If the OPC UA connection is down, the crane controls will not
+function. Catch this early — do not discover it at 12:29 PM.
+
+---
+
+## Communication Protocols
+
+**→ Vulnerability Hunters:**
+Surface anomalous ICS behavior immediately. Do not wait until you
+are certain — flag it early. A callout like "PLC showing BOP coil
+TRUE at 11:23 AM, WellPressure is 1800 — below threshold,
+investigating" gives Hunters what they need to start an incident
+report.
+
+**→ Green Team:**
+Any firewall change that could affect HTTP/HTTPS traffic must be
+communicated to Green Team before implementing. A rule that breaks
+scoring engine access to the webserver costs both of you uptime points.
+
+**→ Hunters (enumeration findings):**
+When Hunters run nmap against your Traditional VMs during the contract
+period and find open ports or vulnerable services, they will flag them
+to you. Address these findings in Week 1 — do not let them sit.
+
+---
+
+## What a Bad Day Looks Like
+
+The red team creates a new domain admin account on AD in the first
+hour and nobody notices until the debrief because audit logging was
+never enabled during the contract period. The Task box mail services
+go down after a Week 3 firewall rule change and stay down for 45
+minutes because nobody tested SMTP after the change. The PLC shows
+anomalous Modbus commands at 2 PM but there are no timestamps or
+source IPs in the incident report because the monitoring workflow was
+never established.
+
+---
+
+## What a Good Day Looks Like
+
+By competition day AD is hardened, audit logging is running, and
+privileged group memberships are baselined from Week 1. Every Task
+box firewall change was verified immediately by testing SMTP and IMAP.
+The PLC monitoring dashboard is checked every 20 minutes and the HMI
+Alarms page shows no unexpected Critical alerts. When the red team
+attempts lateral movement from HMI at 1 PM it is caught within 10
+minutes, documented with source IP and timestamp, and handed to
+Hunters for an incident report that scores well.
+
+---
+
+## See Also
+
+- [cyberforce101.md](../../docs/cyberforce101.md)
+- [shared-foundations.md](../../docs/shared-foundations.md)
+- [green-team.md](green-team.md)
+- [vuln-hunters.md](vuln-hunters.md)
+- [competition-prep/cyberforce/week-by-week.md](../week-by-week.md)
