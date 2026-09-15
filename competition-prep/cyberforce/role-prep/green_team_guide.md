@@ -1,307 +1,171 @@
-================================================================================
-# Green Team Technical Prep
-Web Application Development & Maintenance
+# Green Team Role — Technical Prep Guide
 
-**Last updated:** August 2026  
-**For:** Green Team role (1 person per CyberForce team)  
-**Time to read:** 30 min
+**Last updated:** September 2026  
+**Owner:** AJ  
+**For:** Green Team competitors and team captains
 
 ---
 
-## Green Team Overview
+## Role Overview
 
-**Your job:** Maintain the web application throughout the competition
+Green Team (1 person per team) owns the webserver. It is
+the most cross-functional role on the team: part sysadmin, part
+application engineer.
 
-**What this means:**
-- The web app is a critical system that green team (simulated users) + scoreboard rely on
-- You must keep it running 24/7 (or lose uptime points)
-- You must apply security patches quickly when vulnerabilities found
-- You must respond to user issues (green team requests)
-- You must make quick CSS/content changes on demand
-
-**Why it matters:**
-- 2024 teams neglected web app → couldn't change website → lost points
-- Uptime % is worth significant points
-- Fast response to changes
+Green Team's technical job is keeping the public-facing web application
+running and accessible to Green Team scorers throughout competition day.
 
 ---
 
-## Prerequisites
+## What You Own
 
-Before starting this section, you should:
-- [ ] Understand basic web concepts (HTTP, client-server model)
-- [ ] Know what a framework is
-- [ ] Be comfortable in Linux command line (basic navigation)
-- [ ] Have some JavaScript familiarity (not expert, but basics)
-
-**If you don't have these:** Read [/resources/technical-prep/technical-prep.md](technical-prep.md) fundamentals first.
+**VM:** Webserver — OpenSUSE Leap running nginx/HTTP  
+**Application stack:** Laravel/PHP (2025 stack — confirm when 2026
+rulebook releases)  
+**Scoring bucket:** Green Team (15%) — website usability as experienced
+by end user volunteers
 
 ---
 
-## What You'll Be Working With
+## Technical Prep — Priority Order
 
-### **2024/2025 Framework: Laravel + PHP**
+Learn these in order. Each layer builds on the one below it. Start with
+Laravel/PHP regardless of your existing background — it is where
+application-level problems surface during competition and where Green
+Team spends most of their time.
 
-**Laravel** is a PHP web framework (backend logic)  
-**PHP** is the server-side language (runs on server)  
-**JavaScript** is for frontend interactivity (runs in browser)  
-**CSS** is for styling (how it looks)  
-**NPM** is a package manager (install libraries)
+### 1. Laravel + PHP
+The actual application stack running on the webserver. This is your
+primary technical domain.
 
-**Important:** Next year (2026) CyberForce (might) use a different framework. You'll need to learn it quickly when rulebook drops.
+What to know:
+- PHP syntax basics — variables, functions, arrays, conditionals
+- Laravel project structure — where routes, controllers, views, and
+  config files live
+- Running and restarting a Laravel application
+- Reading Laravel error logs (`storage/logs/laravel.log`)
+- Common Laravel errors and what they mean — 500 errors, missing
+  `.env` config, database connection failures
+- Artisan CLI basics — `php artisan serve`, `php artisan cache:clear`,
+  `php artisan config:clear`
+- How Laravel connects to the database (`.env` DB credentials)
 
----
+Where to learn:
+- [Laravel official docs](https://laravel.com/docs) — read the
+  Getting Started and Directory Structure sections
+- [Laracasts](https://laracasts.com) — free Laravel beginner series
+- PHP.net — reference for PHP syntax
 
-## Learning Path
+**Note:** The exact application stack may change year to year. The 2025
+stack was Laravel/PHP. Confirm when the 2026 technical rulebook releases
+and adjust prep accordingly.
 
-### **1: Fundamentals**
+### 2. nginx
+The web server software serving the Laravel application over HTTP/HTTPS.
+If nginx goes down or misconfigures, the application becomes
+unreachable — Green Team scorers cannot access the site and you lose
+uptime points in both the Green (15%) and Blue (20%) scoring buckets.
 
-**Goal:** Understand web app basics
+What to know:
+- Starting, stopping, and restarting nginx (`systemctl restart nginx`)
+- Reading nginx error logs (`/var/log/nginx/error.log`)
+- Basic nginx config structure — server blocks, root directory,
+  index files
+- How nginx connects to PHP-FPM to serve Laravel
+- Checking nginx status (`systemctl status nginx`)
+- Understanding what a 502 Bad Gateway error means and how to fix it
 
-**Read:**
-- https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/ 
-  - How the web works
-  - Basic HTML/CSS/JavaScript intro
+Where to learn:
+- [nginx beginner's guide](https://nginx.org/en/docs/beginners_guide.html)
+- DigitalOcean nginx tutorials — practical and well-written
 
-**Install & Practice:**
-- [ ] Install VSCode (https://code.visualstudio.com/)
-- [ ] Create simple HTML page with CSS
-- [ ] Understand view-source in browser (inspect website structure)
+### 3. Linux Basics (OpenSUSE Leap)
+The webserver runs on OpenSUSE Leap — an RPM-based Linux distribution.
+Most Linux fundamentals transfer from Ubuntu, but the package manager
+and some tooling differ.
 
----
+What to know:
+- OpenSUSE-specific: `zypper` package manager (equivalent of `apt`)
+- File system navigation — finding config files, log files,
+  application directories
+- File permissions — reading and fixing permission errors that break
+  web applications
+- Process management — `ps`, `top`, `systemctl`
+- SSH access — connecting to and working within the VM
+- Firewall basics — `firewalld` on OpenSUSE (not ufw)
 
-### **2: JavaScript Basics**
+Where to learn:
+- OpenSUSE documentation at doc.opensuse.org
+- Any general Linux command line tutorial transfers — the commands
+  are the same, only the package manager differs
 
-**Goal:** Comfortable modifying JavaScript in web app
+### 4. MySQL / MariaDB Basics
+The webserver's Laravel application connects to the database VM (DB)
+to read and write application data. Green Team does not own the DB VM
+— that belongs to Monitoring and Hardening — but you need to understand
+the connection so you can diagnose application errors caused by database
+connectivity issues.
 
-**Read & Practice:**
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide (start with basics)
-  - Variables, functions, DOM manipulation
-  - Don't memorize everything, understand concepts
+What to know:
+- How Laravel's `.env` file specifies database connection settings
+  (`DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`)
+- What a database connection failure looks like in Laravel error logs
+- Basic MySQL commands for verifying connectivity:
+  `mysql -u [user] -p -h [host]`
+- How to tell whether an application error is a code problem vs. a
+  database connectivity problem
 
-**Practice:**
-- [ ] Modify webpage JavaScript in browser console (Ctrl+Shift+K)
-- [ ] Understand event listeners (button clicks, form submissions)
-- [ ] Know how to find JavaScript in inspect element
+Where to learn:
+- Laravel docs on database configuration
+- MySQL official getting started guide
 
-**Why:** During comp, you might need to quick-fix broken JavaScript or add functionality
+### 5. HTML / CSS / JavaScript
+Useful context for understanding the front end of the web application
+but not a priority for competition prep. Green Team scorers interact
+with the application as end users — they click buttons and submit forms.
+If something is broken at this layer it is usually a symptom of a
+Laravel or nginx problem, not an HTML/CSS problem.
 
----
+What to know:
+- Enough to read page source and understand what the application is
+  serving
+- Basic browser developer tools — inspecting network requests,
+  reading console errors
+- Recognizing whether an error is front-end (JavaScript console error)
+  vs. back-end (Laravel 500 error in logs)
 
-### **3: CSS Mastery**
+### 6. Basic Networking
+Understanding how traffic flows to your webserver and why a service
+might appear down to the scoring engine even when nginx is running.
 
-**Goal:** Quick CSS changes under pressure
+What to know:
+- HTTP vs. HTTPS — ports 80 and 443, what each serves
+- How the scoring engine checks your webserver (it makes HTTP requests
+  and compares returned content to an expected file)
+- What it means when a service is "up" but not "scoring" — the content
+  returned does not match what the engine expects
+- Basic `curl` usage for testing whether your webserver is serving
+  expected content: `curl http://[your-ip]/[expected-path]`
+- How firewall rules can accidentally block scoring engine traffic
 
-**Read & Practice:**
-- https://developer.mozilla.org/en-US/docs/Learn/CSS (focus on selectors + styling)
-- Understand:
-  - CSS selectors (class, ID, element)
-  - Common properties (color, font, width, display)
-  - Box model (margin, padding, border)
-  - Flexbox basics (layout)
+## What a Bad Day Looks Like
 
-**Practice:**
-- [ ] Modify CSS on website (change colors, fonts, layout)
-- [ ] Do it from browser inspector (test before editing file)
-- [ ] Deploy changes (restart server)
-- [ ] Ensure you can make changes in a timely manner 
-
----
-
-### **4: Laravel Basics**
-
-**Goal:** Understand Laravel structure so you can make quick changes
-
-**Important:** You don't need to be a Laravel expert. You need to:
-- Know where files are
-- Understand the structure
-- Be able to make quick changes
-- Know how to restart the app
-
-**Read:**
-- Laravel documentation: https://laravel.com/docs/10.x (start with intro)
-- Focus on:
-  - Project structure (where files live)
-  - Routes (how URLs map to pages)
-  - Views (HTML templates)
-  - Controllers (business logic)
-
-**Practice:**
-- [ ] Clone Laravel repo locally
-- [ ] Run `composer install` + `npm install` (package managers)
-- [ ] Run development server (`php artisan serve`)
-- [ ] Modify a view (HTML template)
-- [ ] See changes in browser
-- [ ] Understand the file structure
-
-**Key files to know:**
-- `routes/web.php` — URL routing
-- `resources/views/` — HTML templates
-- `public/` — CSS, JavaScript, images
-- `.env` — Configuration (database, app settings)
-- `app/Http/Controllers/` — Business logic
-
----
-
-### **5: Deployment & Patching**
-
-**Goal:** Deploy changes + apply security patches quickly
-
-**Read:**
-- Laravel deployment guide: https://laravel.com/docs/10.x/deployment
-- Understand:
-  - How app runs on production server
-  - What `php artisan` commands do
-  - Database migrations (schema changes)
-  - Environment configuration
-
-**Practice:**
-- [ ] Deploy to test server (cloud VM)
-- [ ] Practice patching (update a package, restart app)
-- [ ] Time yourself, ensure you can deploy changes in a timely manner
-- [ ] Know the commands:
-  ```bash
-  git pull origin main           # Get latest code
-  composer install              # Install PHP dependencies
-  npm install && npm run build   # Install JS dependencies + build
-  php artisan migrate            # Database schema updates
-  php artisan config:cache       # Apply config changes
-  # Restart web server (method depends on your setup)
-  ```
-
-**Reality check:** On competition day, you might need to do this in 5 minutes while under pressure. Practice!
+The webserver goes down mid-competition and stays down for 30 minutes
+while you diagnose whether it is an nginx issue, a Laravel issue, or
+a database connectivity issue. That is lost Green Team uptime points
+and lost Blue Team uptime points simultaneously. 
 
 ---
 
-## Tools You'll Use
+## What a Good Day Looks Like
 
-### **Must Have:**
-- **VSCode** or similar editor (https://code.visualstudio.com/)
-- **Git** (version control, `apt-get install git`)
-- **PHP** (comes with Laravel)
-- **Node.js/NPM** (package manager, https://nodejs.org/)
-- **Composer** (PHP package manager, https://getcomposer.org/)
-
-### **Helpful:**
-- **Browser DevTools** (Ctrl+Shift+K or F12)
-  - Inspect elements
-  - Console (run JavaScript)
-  - Network tab (see requests)
-- **SSH client** (to connect to server)
-- **Database viewer** (if needed for debugging)
+nginx is running, Laravel is serving the expected pages, Green Team
+scorers can interact with the application throughout competition day.
 
 ---
 
-## 2026 Specific Tasks (When You Get Rulebook)
+## See Also
 
-**First day (rulebook release):**
-- [ ] Read rulebook carefully
-- [ ] Identify website URL (`web:blue0001.cfc.local` or similar)
-- [ ] Get production server access
-- [ ] Deploy initial website
-- [ ] Test that it works
-
-**Week of prep:**
-- [ ] Ensure site loads correctly
-- [ ] Check all forms work (job submissions, login, etc.)
-- [ ] Verify admin interface works
-- [ ] Check footer/logos load
-- [ ] Test file upload functionality
-- [ ] Know how to quickly change:
-  - Career positions listed
-  - Admin user settings
-  - Footer content
-  - Logo images
-  - Site styling
-
-**Competition week:**
-- [ ] Monitor uptime (is site loading?)
-- [ ] Fix issues reported by green team (users)
-- [ ] Apply security patches quickly
-- [ ] Update content when scoreboard requests it
-- [ ] Keep detailed logs of changes made
-
----
-
-
-## Prep Timeline Example
-
-| Week | Goals |
-|------|-------|
-| **Sept 1** | Read this page, understand role | 
-| **Sept 2–3** | JavaScript basics, install tools | 
-| **Sept 4–5** | CSS practice, modify websites | 
-| **Sept 6–7** | Laravel setup, understand structure | 
-| **Sept 8–9** | Deployment practice, patching | 
-| **Oct 1–31** | Ongoing: CSS changes, Laravel updates | 
-| **Nov 1–7** | Scenario release: deploy production site | 
-| **Nov 8–13** | Finalize, test everything | 
-| **Nov 14** | Competition day! | 
-
----
-
-## Additional Resources
-
-### **Video Tutorials (If You Prefer Video)**
-
-**Laravel:**
-- Laracasts (free intro): https://laracasts.com/
-- [Brad Traversy YouTube](https://www.youtube.com/@TraversyMedia): Laravel tutorials
-
-**JavaScript:**
-- MDN JavaScript Guide: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
-- JavaScript.info: Interactive tutorials
-
-**CSS:**
-- CSS Tricks: https://css-tricks.com/ (articles + guides)
-- Flexbox guide: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-
-### **Practice Projects**
-
-**Do these to get comfortable:**
-- [ ] Modify an open-source Laravel project locally
-- [ ] Create custom CSS theme for a website
-- [ ] Write JavaScript to change page content on click
-- [ ] Deploy a simple Laravel site to a test server
-
----
-
-## Pre-Competition Checklist
-
-By October 31, you should be able to:
-- [ ] Explain what Laravel is + why it matters
-- [ ] Navigate Laravel project structure
-- [ ] Modify CSS in a running app + see changes
-- [ ] Update website content (text, images)
-- [ ] Commit changes to Git + deploy
-- [ ] Run `php artisan` commands
-- [ ] Restart web server
-- [ ] Handle 2–3 requests per hour during crunch (late Nov)
-- [ ] Deploy security patches in a timely manner
-
----
-
-## If You Get Stuck
-
-**Resource:** CyberForce 101 Library (section on Green Team)  
-**People:** Ask hunters/monitoring team for help if stuck  
-**Docs:** Read provided website README file carefully  
-**Forum:** CyberForce has discussion forums + help tickets  
-
-**Remember:** You can't receive help from outside your team during competition, but prep help is fine!
-
----
-
-## Next Steps
-
-1. [ ] Finish reading this page
-2. [ ] Install VSCode + Git + Node.js
-3. [ ] Do JavaScript basics tutorial 
-4. [ ] Try modifying a CSS file 
-5. [ ] Set up local Laravel project 
-6. [ ] Practice deploying changes 
-7. [ ] Report back questions to other team members of green team for technical help, for any modifications to this page DM @AJ
-
----
-
-================================================================================
+- [cyberforce101.md](../../docs/cyberforce101.md)
+- [shared-foundations.md](../../docs/shared-foundations.md)
+- [competition-prep/cyberforce/week-by-week.md](../week-by-week.md)
