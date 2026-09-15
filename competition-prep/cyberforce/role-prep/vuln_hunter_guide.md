@@ -1,415 +1,274 @@
-================================================================================
-# Hunters Technical Prep
-Vulnerability Finding & Anomaly Solving
+# Vulnerability Hunters Role — Technical Prep Guide
 
-**Last updated:** August 2026  
-**For:** Vulnerability Hunters (3 people per CyberForce team)  
-**Time to read:** 45 min
+**Last updated:** September 2026  
+**Owner:** AJ  
+**For:** Vulnerability Hunter competitors and team captains
 
 ---
 
-## Hunters Overview
+## Role Overview
 
-**Your job:** Find security vulnerabilities and solve anomalies (CTF-style challenges)
+Vulnerability Hunters (3 people per team) own two distinct jobs during
+competition: solving anomaly challenges and conducting red team recon
+across all VMs. They are the largest sub-team because their work spans
+two scoring buckets — Anomaly Scoring (15%) and the investigation side
+of Red Team scoring (25%).
 
-**What this means:**
-- Explore the network + systems to find weaknesses
-- Solve mysterious challenges hidden in the infrastructure
-- Enumerate services and identify attack vectors
-- Document findings for security documentation
-- Work under time pressure with tight deadlines
-
-**Why it matters:**
-- Anomalies worth [insert percentage] of total points
-- Requires mix of technical skills + creative problem-solving
-- "Know when to quit" on hard challenges (time management is critical)
+Hunters are the most offensively-minded role on the team. While
+Monitoring and Hardening locks systems down and Green Team keeps the
+application running, Hunters are actively investigating, problem-solving,
+and tracking adversary behavior across the entire network.
 
 ---
 
-## Prerequisites
+## What You Own
 
-Before starting this section, you should:
-- [ ] Comfortable navigating Linux command line
-- [ ] Basic understanding of networking (IP, ports, services)
-- [ ] Problem-solving skills (CTF experience is huge plus)
-- [ ] Willingness to google + learn on the fly
+**Anomaly challenges** — CTF-style problems released by the White Team
+throughout competition day. Time-limited — close whether you submit or
+not.
 
-**If you don't have these:** Read [/resources/technical-prep/technical-prep.md](technical-prep.md) fundamentals first.
-
----
-
-## What You'll Be Hunting For
-
-### **Anomalies (CTF-style Challenges)**
-
-- **Steganography:** Image with hidden data → Extract it
-- **Cryptography:** Encrypted message → Crack it
-- **Reverse engineering:** Binary file → Understand what it does
-- **Forensics:** Log file → Find evidence of attacker activity
-- **Radio signals:** RF data → Decode it
-- **Privilege escalation:** Limited user → Become root
-- **Web exploitation:** Web app → Find SQL injection or XSS
+**Red team recon** — investigating what the red team is doing across
+all VMs including HMI and PLC. Identifying indicators of compromise
+on Traditional VMs. Supporting incident report drafting.
 
 ---
 
-### **Vulnerabilities (Real Security Issues)**
+## Technical Prep — Priority Order
 
-These are actual exploitable flaws in systems:
+### 1. CTF Fundamentals by Category
 
-- **Open ports:** Unnecessary services running
-- **Weak credentials:** Default passwords not changed
-- **Misconfigurations:** Services set up insecurely
-- **Permissions errors:** Files/folders accessible by wrong users
-- **Known CVEs:** Outdated software with published vulnerabilities
-- **Reverse shells:** Attacker backdoors hidden in cron jobs or scripts
+Anomalies are CTF-style challenges themed around the year's scenario.
+The 2026 scenario is Vulcana Dynamics Ltd. — an energy utility with
+power grid and radar network controls. Anomalies will likely touch
+industrial control concepts, network protocols, and forensics themes
+relevant to the scenario.
 
-**Your job:** Find these BEFORE red team does, so you can patch them.
+You do not all need to be strong in everything, but
+every category should have at least one Hunter who can attempt it.
 
----
+**Web Exploitation**
+What to know:
+- SQL injection — identifying and exploiting vulnerable input fields
+- Cross-site scripting (XSS) — reflected and stored
+- Directory traversal — accessing files outside the web root
+- Common HTTP methods and status codes
+- Burp Suite or browser dev tools for intercepting and modifying requests
+- Reading and manipulating cookies and session tokens
 
-## Learning Path
+Where to learn:
+- [PortSwigger Web Security Academy](https://portswigger.net/web-security)
+  — free, hands-on, the best resource for web exploitation
 
-### **1: Linux Fundamentals**
+**Cryptography**
+What to know:
+- Caesar cipher, Vigenère, and basic substitution ciphers
+- Base64, hex, and binary encoding/decoding
+- XOR operations and why they appear in CTF crypto
+- RSA basics — public/private keys, why small exponents are vulnerable
+- Hash functions — MD5, SHA1, SHA256 — and hash cracking with hashcat
+  or john the ripper
+- CyberChef for rapid encoding/decoding operations
 
-**Goal:** Comfortable navigating Linux systems
+Where to learn:
+- [CryptoPals](https://cryptopals.com) — hands-on crypto challenges
+- [CyberChef](https://gchq.github.io/CyberChef) — bookmark this now
 
-**Reading + Exercises:**
-- https://pwn.college/linux-luminarium/ (Linux fundamentals)
-  - Command line basics (navigation, file operations)
-  - Users & permissions (chmod, chown, sudo)
-  - Process management (ps, kill, systemctl)
-  - Services (systemctl, service commands)
+**Forensics**
+What to know:
+- File format identification — `file` command, magic bytes
+- Steganography — hidden data in images, audio files
+  (`steghide`, `binwalk`, `strings`)
+- pcap analysis — reading network captures in Wireshark
+- Memory forensics basics — Volatility framework
+- Log file analysis — reading and searching large log files
+- Metadata extraction — `exiftool` for images and documents
 
-**Practice:**
-- [ ] Set up Linux VM (VirtualBox)
-- [ ] Practice navigation + file operations  
-- [ ] Create users, change permissions 
-- [ ] Start/stop services
+Where to learn:
+- [Wireshark sample captures](https://wiki.wireshark.org/SampleCaptures)
+- CTFtime.org writeups for forensics challenges from past competitions
 
----
+**Reverse Engineering**
+What to know:
+- Reading disassembled x86/x64 assembly — identifying functions,
+  loops, conditionals
+- Static analysis with Ghidra (free) or Binary Ninja
+- Dynamic analysis with GDB — setting breakpoints, reading registers
+- Identifying common patterns — string comparisons, license checks,
+  flag validation routines
+- Python scripting for automating RE tasks
 
-### **2: Windows Fundamentals**
+Where to learn:
+- [Ghidra](https://ghidra-sre.org) — install and complete the
+  built-in tutorial
+- [pwn.college](https://pwn.college) — reverse engineering modules
 
-**Goal:** Navigate Windows systems for vulnerabilities
+**Binary Exploitation (pwn)**
+What to know:
+- Stack buffer overflows — overwriting return addresses
+- Format string vulnerabilities
+- Python pwntools library for exploit scripting
+- GDB with pwndbg or peda for dynamic analysis
+- Basic ROP (Return Oriented Programming) concepts
+- Understanding checksums: NX, ASLR, stack canaries — and when each
+  can be bypassed
 
-**Read:**
-- Windows security basics
-  - Command Prompt vs PowerShell
-  - User accounts + groups
-  - Registry basics (don't edit, just understand)
-  - Services + startup programs
-  - Event logs (what they are, not analyzing yet)
+Where to learn:
+- [pwn.college](https://pwn.college) — the best free resource for pwn
+- [LiveOverflow YouTube](https://youtube.com/@LiveOverflow) — binary
+  exploitation series
 
-**Practice:**
-- [ ] Set up Windows VM (VirtualBox)
-- [ ] Navigate file system via cmd
-- [ ] List users & groups (`whoami /all`, `net user`)
-- [ ] View services (`Get-Service` in PowerShell)
-- [ ] Check startup programs
+**OSINT (Open Source Intelligence)**
+What to know:
+- Google dorking — advanced search operators (`site:`, `filetype:`,
+  `inurl:`, `intitle:`)
+- Reverse image search — Google Images, TinEye, Yandex
+- WHOIS lookups and domain history
+- Social media investigation techniques
+- Wayback Machine for historical website content
+- Geolocation from image metadata and visual clues
 
----
+Where to learn:
+- [OSINT Framework](https://osintframework.com)
+- Trace Labs CTF events — OSINT-specific competitions
 
-### **3: Enumeration Tools**
+**Networking**
+What to know:
+- TCP/IP model — how packets flow between hosts
+- Reading pcap files in Wireshark — filtering by protocol, IP, port
+- Common protocols: HTTP, DNS, FTP, SMTP, Modbus — what normal traffic
+  looks like for each
+- nmap — port scanning, service detection, OS fingerprinting
+- netcat for basic network connections and testing
+- Identifying anomalous traffic patterns in captures
 
-**Goal:** Use tools to scan systems + find services
+Where to learn:
+- [Wireshark](https://wireshark.org) — download and practice on
+  sample captures
+- nmap official documentation and the nmap book (free online)
 
-**Learn & Practice:**
-
-**NMap (Network Mapping)**
-- https://nmap.org/docs.html
-- **What:** Scan networks for open ports + services
-- **Why:** Identify what's running on systems
-- **Practice:**
-  ```bash
-  nmap 10.0.190.0/24              # Scan network
-  nmap -p 1-65535 10.0.190.145    # Scan all ports
-  nmap -sV 10.0.190.145            # Detect service versions
-  ```
-
-**Grep + File Analysis**
-- **What:** Search files for sensitive info
-- **Why:** Find credentials, config errors, suspicious entries
-- **Practice:**
-  ```bash
-  grep -r "password" /etc/         # Find password mentions
-  grep -r "root" /var/log/         # Find root access attempts
-  grep "sudo" /var/log/auth.log    # Find sudo usage
-  ```
-
-**Port Scanning Basics**
-- **What:** Connect to ports to identify services
-- **Why:** Validate what's running
-- **Practice:**
-  ```bash
-  nc -zv 10.0.190.145 22          # Check SSH
-  telnet 10.0.190.145 80          # Check HTTP
-  ```
-
----
-
-### **4: CTF Fundamentals**
-
-**Goal:** Comfortable solving CTF challenges (anomalies are CTFs)
-
-**Attend CTF Group CTFs**
-- **Document:** Write down how you solved it
-- **Difficulty curve:** Start easy, work up to harder challenges
-
-**Key strategies:**
-- Understand the challenge (read carefully)
-- Identify what format the answer is (flag, number, text?)
-- Use available tools (see anomaly tools section below)
-- Google for hints (searching is allowed in CTFs)
-- Don't spend >1 hour on one challenge (move on, return later)
-
----
-
-### **5: Anomaly Tools**
-
-**Goal:** Know which tool to use for which challenge
-
-**Install all of these:**
-
-**Steghide** (Steganography)
-- Extract hidden data from images
-- Install: `apt-get install steghide`
-- Use: `steghide extract -sf image.jpg`
-
-**John the Ripper + Hashcat** (Password Cracking)
-- Crack password hashes
-- Install: `apt-get install john hashcat`
-- Use:
-  ```bash
-  john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt
-  hashcat -m 1400 hashes.txt rockyou.txt
-  ```
-
-**NMap** (Network Mapping)
-- Already covered above
-- Install: `apt-get install nmap`
-
-**CyberChef** (Data Transformation)
-- Encode/decode, base64, cipher operations
-- Access: https://cyberchef.io/ (web-based, no install needed)
-- Why: Many anomalies require encoding/decoding
-
-**Python** (Custom Scripts)
-- Write tools for unique challenges
-- Usually pre-installed
-- Basics: read/write files, string manipulation, base64, hashing
-
-**Universal Radio Hacker (URH)** (RF Analysis)
-- Analyze radio signals
-- Install: `pip install urh`
-- Use: GUI application for signal analysis
-
-**Docker** (Containerization)
-- Run containerized applications
-- Install: https://docs.docker.com/get-docker/
-- Use: `docker run`, `docker inspect`
-
-**Git** (Version Control)
-- Analyze git repositories
-- Install: `apt-get install git`
-- Use: `git log`, `git diff`, git forensics
-
-**Autopsy** (Digital Forensics)
-- Recover files, analyze disks
-- Install: Download from https://www.sleuthkit.org/autopsy/
-- Use: GUI for file recovery + disk analysis
-
-**Ghidra** (Reverse Engineering)
-- Disassemble binary files
-- Download: https://ghidra-sre.org/
-- Use: Analyze compiled programs
-
-**Okteta** (Hex Editor)
-- View/edit binary files
-- Install: `apt-get install okteta`
-- Use: Low-level binary analysis
-
-**WinDebug** (Windows Debugging)
-- Debug Windows programs
-- Install: Part of Windows SDK
-- Use: Analyze binary behavior
-
-**The Fluffy Suite** (Specialized)
-- [Note: Research this from CF documentation]
-- [Purpose: [Find specific anomaly type]
-- Install: [Find installation method]
-
+**General Skills / Miscellaneous**
+What to know:
+- Linux command line fluency — file navigation, grep, find, pipes
+- Python scripting — automating repetitive tasks, parsing output,
+  writing quick exploit scripts
+- Reading and writing basic scripts in bash
+- Recognizing and decoding common encodings quickly
+- Git basics — cloning repos, reading commit history (sometimes
+  relevant in forensics challenges)
 
 ---
 
-### **6: Hands-On Practice**
+### 2. Recon and Network Monitoring Tools
 
-**Solve a majority of the CTF challenges from CTF events (challenges will still be open after events)**
+**nmap**
+- Service enumeration: `nmap -sV [target]`
+- OS detection: `nmap -O [target]`
+- Running against your own network to see what the red team sees
+- Script scanning for common vulnerabilities: `nmap --script vuln [target]`
+- Do not run offensive scans against other teams — rules violation and
+  disqualification risk
 
-**Goal:** Build speed + confidence
+**Wireshark / tcpdump**
+- Capturing traffic on your network interfaces
+- Filtering by protocol, IP address, and port
+- Identifying red team reconnaissance — port scans appear as SYN
+  packets to many ports in rapid succession
+- Identifying lateral movement — unexpected connections between VMs
+- Identifying data exfiltration — large outbound transfers to
+  unexpected destinations
+- tcpdump for quick command-line captures:
+  `tcpdump -i eth0 -w capture.pcap`
 
-**Strategy:**
-- Solve easy ones first (build momentum)
-- Document your process (helps you remember)
-- Try multiple solutions (different ways to solve)
-
-
----
-
-## Enumeration Process - Starts once we recieve access to the servers+rulebook (Phase 2)
-
-**Step 1: Reconnaissance (First few hours)**
-
-Your job: Understand the network completely
-
-**Steps:**
-1. **Map the network** (NMap scan)
-   ```bash
-   nmap -sV 10.0.190.0/27
-   ```
-   → Identify all systems + services running
-
-2. **Create network diagram**
-   - Host: webserver (nginx, SSH, NFS)
-   - Host: database (MySQL, RDP)
-   - Host: AD server (LDAP, WinRM)
-   - Host: Task box (SMTP, IMAP, SSH)
-   - Host: HMI (web interface, MySQL)
-   - Host: PLC (modbus port 502)
-
-3. **List required services**
-   - Compare what's running vs what should be running
-   - Flag anything unexpected
-
-4. **Document everything**
-   - IP, hostname, OS, ports, services
-   - This is your team's "asset inventory"
-
+**Log analysis**
+- Windows Event Viewer — key Event IDs to watch:
+  - 4624: successful logon
+  - 4625: failed logon (brute force indicator)
+  - 4720: new user account created (red team persistence)
+  - 4728/4732: user added to security/local group (privilege escalation)
+  - 4672: special privileges assigned (admin logon)
+- Linux auth logs: `/var/log/auth.log` — watch for failed SSH attempts
+  and successful logins from unexpected sources
+- Feeding log findings to Splunk (Incident Response owns this) —
+  communicate what you find, do not try to manage Splunk yourself
 
 ---
 
-**Step 2: Vulnerability Finding**
+### 3. ICS / OT Awareness (CyberForce-Specific)
 
-Your job: Find exploitable weaknesses
+The HMI and PLC are Assume Breach VMs — Hunters help Monitoring and
+Hardening investigate red team activity on them. You do not need to be
+an industrial control systems expert, but you need enough context to
+recognize anomalous behavior.
 
-**Check for:**
-- Unnecessary services (disable them)
-- Default credentials (change them)
-- Known CVEs (update software)
-- Open shares (restrict access)
-- Weak permissions (fix them)
-- Suspicious files (analyze them)
+**What normal looks like on the PLC:**
+- WellPressure below 5000.0 (above triggers Blowout Prevention)
+- WellTemp below 95.0 (above triggers Blowout Prevention)
+- WellFlowRate between 0.17 and 10.42 (normal oil generation range)
+- SeparatorTemp between 20.0 and 90.0 (Separator enabled in this range)
+- SafeToOperate = TRUE (FALSE triggers Emergency Shutdown)
+- Modbus traffic on port 502 — the PLC communicates via Modbus TCP
 
-**Tools to use:**
-- File analysis: `find`, `ls -la`, `grep`
-- Permission checks: `stat`, `getfacl`
-- Network services: `ss`, `netstat`
-- Process checks: `ps aux`
-- Log analysis: `tail -f`, `grep`
+**Red team indicators on ICS systems:**
+- SafeToOperate flipped to FALSE unexpectedly
+- BOP (Blowout Prevention) activating without WellPressure or WellTemp
+  threshold being reached
+- Unexpected coil state changes — valves opening or closing without
+  system logic triggering them
+- Modbus write commands from unexpected source IPs
+- ExportPump or WaterInjectPump activating outside normal parameters
 
-
----
-
-**Step 3: Anomaly Solving**
-
-Your job: Solve challenges
-
-**Approach:**
-1. Read challenge carefully
-2. Identify what's being asked
-3. Pick right tool(s)
-4. Solve it
-5. Document solution
-6. Submit answer
-7. Move to next
-
+**The ICS anomaly (competition day):**
+At 12:30 PM and 2:45 PM a cargo ship arrives for resupply. Crane
+interactions via the HMI Home page must be completed within the
+scheduled time slot. It is a timed anomaly that requires HMI interaction, not a traditional
+CTF challenge.
 
 ---
 
-## Prep Timeline Example
+### 4. Anomaly Triage Under Time Pressure
 
-| Week | Goals |
-|------|-------|
-| **Sept 1** | Read this page |
-| **Sept 2** | Linux fundamentals + practice |
-| **Sept 3** | Windows fundamentals + practice |
-| **Sept 4–5** | Enumeration tools (NMap, grep) |
-| **Sept 6–7** | CTF fundamentals + solve 5 anomalies |
-| **Sept 8–9** | Install all anomaly tools |
-| **Oct 1–31** | Solve 10–20 more anomalies |
-| **Nov 1–7** | Rulebook+server release: network enumeration |
-| **Nov 8–13** | Anomaly solving + vulnerability finding |
-| **Nov 14** | Competition day! |
+**When an anomaly drops:**
+1. Read the full challenge description before doing anything
+2. Estimate difficulty and point value — is this worth the time?
+3. Assign it to the Hunter best suited for the category
+4. Set a mental time limit — if you have not made meaningful progress
+   in 20 minutes, flag it and move on
+5. Never let one hard anomaly consume all three Hunters while easier
+   ones go unsolved
 
----
-
-## Additional Resources
-
-### **Hands-on Practice**
-
-**TryHackMe** (CTF-style training)
-- https://tryhackme.com/
-- Free rooms with guidance
-- Good stepping stone before CTF Group CTFs
-
-**HackTheBox** (Real-world challenges)
-- https://www.hackthebox.eu/
-- Harder than TryHackMe
-- More realistic scenarios
-
-**CTFTime** (writeups from past CTFs)
-- https://ctftime.org/
-- See how others solved challenges
-- Learn different approaches
-
-### **Reading Material**
-
-**MITRE ATT&CK Framework**
-- https://attack.mitre.org/
-- Understand attacker techniques
-- Know what you're looking for in logs
-
-**CyberChef Recipes**
-- https://cyberchef.io/
-- Search for common encoding/decoding
-- Copy + modify recipes for your challenges
+**Time limits are real:**
+Anomalies close on a schedule. A challenge that closes before you
+submit earns zero regardless of how close you were. Submit partial
+progress if the deadline is approaching — some anomalies award partial
+credit.
 
 ---
 
-## Pre-Competition Checklist
+## What a Bad Day Looks Like
 
-By October 31, you should be able to:
-- [ ] Explain what anomalies are
-- [ ] Run NMap + interpret results
-- [ ] Use grep to search files
-- [ ] Extract data with Steghide
-- [ ] Crack password hashes (John/Hashcat)
-- [ ] Solve CTF challenges in <1 hour each
-- [ ] Use CyberChef for encoding/decoding
-- [ ] Write simple Python scripts
-- [ ] Use Ghidra for reverse engineering basics
-- [ ] Document findings clearly
----
-
-## If You Get Stuck
-
-**For tool help:** YouTube tutorials + official documentation  
-**For anomaly help:** Try TryHackMe or HackTheBox similar challenges  
-**For ideas:** CyberChef recipes + CTFTime writeups  
-**For team questions:** Ask monitoring team if anomaly involves system access  
-
-**Remember:** You can't get outside help during competition, but prep help is fine!
+Three anomalies drop in the first hour. Two close before the team
+submits because everyone was heads-down on the hardest one. The red
+team pivots from HMI to AD and nobody notices until they have had a
+backdoor account live for 45 minutes. The incident report is vague
+because nobody documented the timeline as it happened.
 
 ---
 
-## Next Steps
+## What a Good Day Looks Like
 
-1. [ ] Finish reading this page
-2. [ ] Set up Linux + Windows VMs (VirtualBox)
-3. [ ] Practice Linux + Windows navigation 
-4. [ ] Install NMap + practice scanning
-5. [ ] Install all anomaly tools
-6. [ ] Any questions regarding this page? Reach out to @AJ
+Someone is monitoring the platform continuously — the moment an
+anomaly drops they read it, assign it, and set a deadline. Another person
+catches unusual Modbus traffic on the PLC at 11 AM and immediately
+calls it out — the team documents source IP, timestamp, and affected
+coils, and submits a detailed incident report that scores well even
+though the red team got in. The cargo ship anomaly at 12:30 PM is
+completed within the time window.
 
 ---
 
-================================================================================
+## See Also
+
+- [cyberforce101.md](../../docs/cyberforce101.md)
+- [shared-foundations.md](../../docs/shared-foundations.md)
+- [monitoring-hardening.md](monitoring-hardening.md)
+- [competition-prep/cyberforce/week-by-week.md](../week-by-week.md)
